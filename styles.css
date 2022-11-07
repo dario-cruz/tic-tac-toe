@@ -4,3 +4,49 @@
     padding: 0;
 }
 
+.bodygrid {
+    display: grid;
+    grid-template: 1fr / 1fr 600px 1fr;
+    grid-template-areas: "left mid right";
+}
+
+/* Setting up gameboard positioning. */
+.playboard {
+    grid-area: mid;
+    height: 600px;
+    width: 600px;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    grid-template-areas: 
+    "topleft topmid topright"
+    "midleft centermid rightmid"
+    "bottomleft bottommid bottomright";
+}
+/* Setting up gameboard peices. */
+#topleft {
+    grid-area: topleft;
+}
+#midleft {
+    grid-area: midleft;
+}
+#bottomleft {
+    grid-area: bottomleft;
+}
+#topmid {
+    grid-area: topmid;
+}
+#centermid {
+    grid-area: centermid;
+}
+#bottommid {
+    grid-area: bottommid;
+}
+#topright {
+    grid-area: topright;
+}
+#midright {
+    grid-area: midright;
+}
+#bottomright {
+    grid-area: bottomright;
+}
