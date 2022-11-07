@@ -2,6 +2,7 @@
 * {
     margin: 0;
     padding: 0;
+    border: 2px solid black;
 }
 
 .bodygrid {
@@ -19,8 +20,9 @@
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
     grid-template-areas: 
     "topleft topmid topright"
-    "midleft centermid rightmid"
+    "midleft centermid midright"
     "bottomleft bottommid bottomright";
+    gap: 5px;
 }
 /* Setting up gameboard peices. */
 #topleft {
