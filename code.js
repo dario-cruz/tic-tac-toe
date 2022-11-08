@@ -1,5 +1,5 @@
 // Defining parts of the gameboard.
-const gameBoard = document.getElementById('gameboard')
+const gameBoardElem = document.getElementById('gameboard')
 const gameSquareTL = document.getElementById('topleft')
 const gameSquareML = document.getElementById('midleft')
 const gameSquareBL = document.getElementById('bottomleft')
@@ -10,3 +10,9 @@ const gameSquareTR = document.getElementById('topright')
 const gameSquareMR = document.getElementById('midright')
 const gameSquareBR = document.getElementById('bottomright')
 
+const gamePlayer = (name, selection) => {
+    return { name, selection }
+}
+
+const dario = gamePlayer("Dario", "x")
+console.log(dario)
