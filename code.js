@@ -1,5 +1,5 @@
 // Defining parts of the gameboard.
-const gameBoardElem = document.getElementById('gameboard')
+const gameBoardDomElem = document.getElementById('gameboard')
 const gameSquareTL = document.getElementById('topleft')
 const gameSquareML = document.getElementById('midleft')
 const gameSquareBL = document.getElementById('bottomleft')
@@ -10,9 +10,15 @@ const gameSquareTR = document.getElementById('topright')
 const gameSquareMR = document.getElementById('midright')
 const gameSquareBR = document.getElementById('bottomright')
 
+// Factory function for creating player objects.
 const gamePlayer = (name, selection) => {
     return { name, selection }
 }
-
+// Testing factory func.
 const dario = gamePlayer("Dario", "x")
 console.log(dario)
+
+// Create gamebord object. 
+const gameBoard = (() => {
+
+})
