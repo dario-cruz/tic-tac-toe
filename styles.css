@@ -5,10 +5,26 @@
     border: 2px solid black;
 }
 
+/* Main grid applied to the body of page. */
+/* Allows for centering of gameboard elems. */
 .bodygrid {
     display: grid;
-    grid-template: 1fr / 1fr 600px 1fr;
-    grid-template-areas: "left mid right";
+    grid-template: 1fr 600px 1fr / 1fr 600px 1fr;
+    grid-template-areas: 
+    "header header header"
+    "left mid right"
+    "footer footer footer";
+}
+/* Positoning for Header and footer areas. */
+.bodygrid > .header {
+    grid-area: header;
+    height: 80px;
+    width: 100vw;
+}
+.bodygrid > .footer {
+    grid-area: footer;
+    width: 100vw;
+    height: 80px;
 }
 
 /* Setting up gameboard positioning. */
@@ -25,6 +41,7 @@
     gap: 5px;
 }
 /* Setting up gameboard peices. */
+/* Each is defined in a grid area. */
 #topleft {
     grid-area: topleft;
 }
