@@ -21,13 +21,16 @@ const gameBoard = (() => {
     const gameSquareMR = document.getElementById('midright')
     const gameSquareBR = document.getElementById('bottomright')
     
-    
+    // Eventlistners for gameBoard elements.
+    gameSquareTL.addEventListener('click', () => {
+        gameSquareTL.innerHTML = 'x'
+    })
+
     // Defining the gameboard positions in object. 
     // When the player or computer picks a position,
     // This will update.
     // Then an evaluation will take place.
     // Once the game is won and event will be triggered to mod the dom.
-
     const gameBoardPositions = {
        rowOne:[0,0,0],
        rowTwo:[0,0,0],
@@ -35,28 +38,51 @@ const gameBoard = (() => {
     }
     let playerWins = false
     let cpuWins = false
+    
+    // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
-        // Horizontal wins Player
-        return gameBoard.rowOne == [1,1,1] ? playerWins = true 
-        : gameBoard.rowTwo == [1,1,1] ? playerWins = true
-        : gameBoard.rowThree == [1,1,1] ? playerWins = true
-        // Vertical Wins Player
-        : gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[0] == 1 && gameBoard.rowThree[0] == 1 ? playerWins = true
-        : gameBoard.rowOne[1] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ? playerWins = true
-        : gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[2] == 1 && gameBoard.rowThree[2] == 1 ? playerWins = true
-        // Cross Wins Player
-        : gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[2] == 1 ? playerWins = true 
-        : gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ? playerWins = true 
-        // Horizontal wins CPU
-        : gameBoard.rowOne == [2,2,2] ? cpuWins = true 
-        : gameBoard.rowTwo == [2,2,2] ? cpuWins = true
-        : gameBoard.rowThree == [2,2,2] ? cpuWins = true
-        // Vertical Wins CPU
-        : gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[0] == 2 && gameBoard.rowThree[0] == 2 ? cpuWins = true 
-        : gameBoard.rowOne[1] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ? cpuWins = true
-        : gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[2] == 2 && gameBoard.rowThree[2] == 2 ? cpuWins = true
-        // Cross Wins CPU
-        : gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ? cpuWins = true 
-        : gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ? cpuWins = true
+        // Horizontal Wins Player
+        if (gameBoard.rowOne == [1,1,1] || gameBoard.rowTwo == [1,1,1] || gameBoard.rowThree == [1,1,1] ) {
+            playerWins = true
+            cpuWins = false
+        } else if (
+            // Vertical Wins Player
+            gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[0] == 1 && gameBoard.rowThree[0] == 1 ||
+            gameBoard.rowOne[1] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ||
+            gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[2] == 1 && gameBoard.rowThree[2] == 1 ) {
+                playerWins = true
+            } else if (
+                // Cross Wins Player
+                gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[2] == 1 ||
+                gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1
+                ) {
+                    playerWins = true
+                    cpuWins = false
+                } else if (
+                    // Horizontal wins CPU
+                    gameBoard.rowOne == [2,2,2] ||
+                    gameBoard.rowTwo == [2,2,2] ||
+                    gameBoard.rowThree == [2,2,2]
+                    ){
+                        cpuWins = true
+                        playerWins = false
+                    } else if (
+                        // Vertical Wins CPU
+                        gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[0] == 2 && gameBoard.rowThree[0] == 2 ||
+                        gameBoard.rowOne[1] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ||
+                        gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[2] == 2 && gameBoard.rowThree[2] == 2
+                    ) {
+                        cpuWins = true
+                        playerWins = false
+                    } else if (
+                        // Cross Wins CPU
+                        gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ||
+                        gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2
+                    ){
+                        cpuWins = true
+                        playerWins = false
+                    } else {
+                        console.log('Whelp, how the hell did we get here????')
+                    }
     }
 })();
