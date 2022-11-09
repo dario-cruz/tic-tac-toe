@@ -69,3 +69,12 @@
 #bottomright {
     grid-area: bottomright;
 }
+
+/* Font sizing for Gameboard squares. */
+.gameboard > div {
+    font-size: 50pt;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

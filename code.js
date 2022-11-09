@@ -23,7 +23,10 @@ const gameBoard = (() => {
     
     // Eventlistners for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
-        gameSquareTL.innerHTML = 'x'
+        gameSquareTL.innerHTML = 'X'
+    })
+    gameSquareML.addEventListener('click', () => {
+        gameSquareML.innerHTML = 'X'
     })
 
     // Defining the gameboard positions in object. 
