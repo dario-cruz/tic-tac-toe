@@ -29,13 +29,18 @@ const gameBoard = (() => {
     gameSquareML.addEventListener('click', () => {
         gameSquareML.innerHTML = 'X'
     })
-
+    
     // Defining the gameboard positions in object. 
     const gameBoardPositions = {
         rowOne:[0,0,0],
         rowTwo:[0,0,0],
         rowThree:[0,0,0]
     }
+
+    // Define player status'
+    let playerWins = false
+    let cpuWins = false
+
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elemts
@@ -56,7 +61,7 @@ const gameBoard = (() => {
         playerWins = false
         cpuWins = false
     }
-    // Eventlistner for game reset button.
+    // Eventlistener for game reset button.
     gameResetButton.addEventListener('click', gameBoardReset())
 
     // When the player or computer picks a position,
@@ -65,8 +70,6 @@ const gameBoard = (() => {
     // Once the game is won and event will be triggered to mod the dom.
 
 
-    let playerWins = false
-    let cpuWins = false
     
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
@@ -113,5 +116,8 @@ const gameBoard = (() => {
                     } else {
                         console.log('Whelp, how the hell did we get here????')
                     }
+    }
+    return {
+        gameEval,
     }
 })();
