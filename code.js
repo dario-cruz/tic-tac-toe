@@ -20,6 +20,7 @@ const gameBoard = (() => {
     const gameSquareTR = document.getElementById('topright')
     const gameSquareMR = document.getElementById('midright')
     const gameSquareBR = document.getElementById('bottomright')
+    const gameResetButton = document.getElementById('resetgame')
     
     // Eventlistners for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
@@ -29,6 +30,12 @@ const gameBoard = (() => {
         gameSquareML.innerHTML = 'X'
     })
 
+    // Defining the gameboard positions in object. 
+    const gameBoardPositions = {
+        rowOne:[0,0,0],
+        rowTwo:[0,0,0],
+        rowThree:[0,0,0]
+    }
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elemts
@@ -42,23 +49,20 @@ const gameBoard = (() => {
         gameSquareTM.innerHTML = ''
         gameSquareTR.innerHTML = ''
         // reset the object and arrays
-        gameBoard.rowOne = [0,0,0]
-        gameBoard.rowTwo = [0,0,0]
-        gameBoard.rowThree = [0,0,0]
+        gameBoardPositions.rowOne = [0,0,0]
+        gameBoardPositions.rowTwo = [0,0,0]
+        gameBoardPositions.rowThree = [0,0,0]
         // reset flags for cpu and player win.
         playerWins = false
         cpuWins = false
     }
-    // Defining the gameboard positions in object. 
+    // Eventlistner for game reset button.
+    gameResetButton.addEventListener('click', gameBoardReset())
+
     // When the player or computer picks a position,
     // This will update.
     // Then an evaluation will take place.
     // Once the game is won and event will be triggered to mod the dom.
-    const gameBoardPositions = {
-       rowOne:[0,0,0],
-       rowTwo:[0,0,0],
-       rowThree:[0,0,0]
-    }
 
 
     let playerWins = false
