@@ -117,6 +117,13 @@ const gameBoard = (() => {
                                 console.log('Whelp, how the hell did we get here????')
                             }
     }
+
+    // CPU random play logic.
+    const cpuRandomPlay = () => {
+        if (gameBoardPositions.rowOne)
+    }
+
+
     return {
         gameEval,
     }
