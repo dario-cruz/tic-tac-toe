@@ -33,10 +33,30 @@ const gameBoard = (() => {
        rowTwo:[0,0,0],
        rowThree:[0,0,0]
     }
-
+    let playerWins = false
+    let cpuWins = false
     const gameEval = () => {
-        if (gameBoardPositions.rowOne == [1,1,1]) {
-            console.log('Player One Wins!')
-        }
+        // Horizontal wins Player
+        return gameBoard.rowOne == [1,1,1] ? playerWins = true 
+        : gameBoard.rowTwo == [1,1,1] ? playerWins = true
+        : gameBoard.rowThree == [1,1,1] ? playerWins = true
+        // Vertical Wins Player
+        : gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[0] == 1 && gameBoard.rowThree[0] == 1 ? playerWins = true
+        : gameBoard.rowOne[1] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ? playerWins = true
+        : gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[2] == 1 && gameBoard.rowThree[2] == 1 ? playerWins = true
+        // Cross Wins Player
+        : gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[2] == 1 ? playerWins = true 
+        : gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ? playerWins = true 
+        // Horizontal wins CPU
+        : gameBoard.rowOne == [2,2,2] ? cpuWins = true 
+        : gameBoard.rowTwo == [2,2,2] ? cpuWins = true
+        : gameBoard.rowThree == [2,2,2] ? cpuWins = true
+        // Vertical Wins CPU
+        : gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[0] == 2 && gameBoard.rowThree[0] == 2 ? cpuWins = true 
+        : gameBoard.rowOne[1] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ? cpuWins = true
+        : gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[2] == 2 && gameBoard.rowThree[2] == 2 ? cpuWins = true
+        // Cross Wins CPU
+        : gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ? cpuWins = true 
+        : gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ? cpuWins = true
     }
 })();
