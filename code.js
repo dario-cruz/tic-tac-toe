@@ -43,7 +43,7 @@ const gameBoard = (() => {
 
     // Reset for gameboard
     const gameBoardReset = () => {
-        // reset the dom elemts
+        // reset the dom elements.
         gameSquareBL.innerHTML = ''
         gameSquareBM.innerHTML = ''
         gameSquareBR.innerHTML = ''
@@ -103,19 +103,19 @@ const gameBoard = (() => {
                         gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[0] == 2 && gameBoard.rowThree[0] == 2 ||
                         gameBoard.rowOne[1] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ||
                         gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[2] == 2 && gameBoard.rowThree[2] == 2
-                    ) {
-                        cpuWins = true
-                        playerWins = false
-                    } else if (
-                        // Cross Wins CPU
-                        gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ||
-                        gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2
-                    ){
-                        cpuWins = true
-                        playerWins = false
-                    } else {
-                        console.log('Whelp, how the hell did we get here????')
-                    }
+                        ) {
+                            cpuWins = true
+                            playerWins = false
+                            } else if (
+                            // Cross Wins CPU
+                                gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ||
+                                gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2
+                            ){
+                                cpuWins = true
+                                playerWins = false
+                            } else {
+                                console.log('Whelp, how the hell did we get here????')
+                            }
     }
     return {
         gameEval,
