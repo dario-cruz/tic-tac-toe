@@ -20,7 +20,7 @@ const gameBoard = (() => {
        rowThree:[0,0,0]
     }
 
-
+    
 
     // Defining parts of the gameboard.
     const gameBoardDomElem = document.getElementById('gameboard')
