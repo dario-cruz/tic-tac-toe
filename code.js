@@ -29,6 +29,26 @@ const gameBoard = (() => {
         gameSquareML.innerHTML = 'X'
     })
 
+    // Reset for gameboard
+    const gameBoardReset = () => {
+        // reset the dom elemts
+        gameSquareBL.innerHTML = ''
+        gameSquareBM.innerHTML = ''
+        gameSquareBR.innerHTML = ''
+        gameSquareCM.innerHTML = ''
+        gameSquareML.innerHTML = ''
+        gameSquareMR.innerHTML = ''
+        gameSquareTL.innerHTML = ''
+        gameSquareTM.innerHTML = ''
+        gameSquareTR.innerHTML = ''
+        // reset the object and arrays
+        gameBoard.rowOne = [0,0,0]
+        gameBoard.rowTwo = [0,0,0]
+        gameBoard.rowThree = [0,0,0]
+        // reset flags for cpu and player win.
+        playerWins = false
+        cpuWins = false
+    }
     // Defining the gameboard positions in object. 
     // When the player or computer picks a position,
     // This will update.
@@ -39,6 +59,8 @@ const gameBoard = (() => {
        rowTwo:[0,0,0],
        rowThree:[0,0,0]
     }
+
+
     let playerWins = false
     let cpuWins = false
     
