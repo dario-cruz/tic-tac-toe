@@ -47,15 +47,15 @@ const gameBoard = (() => {
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elements.
-        gameSquareBL.innerHTML = ''
-        gameSquareBM.innerHTML = ''
-        gameSquareBR.innerHTML = ''
-        gameSquareCM.innerHTML = ''
-        gameSquareML.innerHTML = ''
-        gameSquareMR.innerHTML = ''
-        gameSquareTL.innerHTML = ''
-        gameSquareTM.innerHTML = ''
-        gameSquareTR.innerHTML = ''
+        gameSquareBL.innerHTML = ""
+        gameSquareBM.innerHTML = ""
+        gameSquareBR.innerHTML = ""
+        gameSquareCM.innerHTML = ""
+        gameSquareML.innerHTML = ""
+        gameSquareMR.innerHTML = ""
+        gameSquareTL.innerHTML = ""
+        gameSquareTM.innerHTML = ""
+        gameSquareTR.innerHTML = ""
         // reset the object and arrays
         gameBoardPositions.rowOne = [0,0,0]
         gameBoardPositions.rowTwo = [0,0,0]
@@ -122,11 +122,17 @@ const gameBoard = (() => {
                         // CPU random play logic.
                         const cpuRandomPlay = () => {
                             let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
+                            let rowTwoOptions = gameBoardPositions.rowTwo.map(isThisEmpty)
+                            let rowThreeOptions = gameBoardPositions.rowThree.map(isThisEmpty)
+                            //Checks for empty board spaces
                             function isThisEmpty(num) {
-                                return num == 0
+                                if (num == 0) {
+                                    return num
+                                }
                             }
-                            
                             console.log(rowOneOptions)
+                            console.log(rowTwoOptions)
+                            console.log(rowThreeOptions)        
                         }
                         
                         
