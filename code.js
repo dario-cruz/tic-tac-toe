@@ -21,7 +21,10 @@ const gameBoard = (() => {
     const gameSquareMR = document.getElementById('midright')
     const gameSquareBR = document.getElementById('bottomright')
     const gameResetButton = document.getElementById('resetgame')
-    
+    // Piece selection buttons
+    const gameChooseX = document.getElementById('chooseX')
+    const gameChooseO = document.getElementById('chooseO')
+
     // Eventlistners for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
         gameSquareTL.innerHTML = 'X'
@@ -36,11 +39,11 @@ const gameBoard = (() => {
         rowTwo:[0,0,0],
         rowThree:[0,0,0]
     }
-
+    
     // Define player status'
     let playerWins = false
     let cpuWins = false
-
+    
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elements.
@@ -61,14 +64,14 @@ const gameBoard = (() => {
         playerWins = false
         cpuWins = false
     }
-    
+
+    // Eventlistener for game reset button.
+    gameChooseO.addEventListener('click', gameBoardReset())
+
     // When the player or computer picks a position,
     // This will update.
     // Then an evaluation will take place.
     // Once the game is won and event will be triggered to mod the dom.
-    
-    
-    
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
         // Horizontal Wins Player
@@ -130,11 +133,6 @@ const gameBoard = (() => {
                         return {
                             gameEval,
                             cpuRandomPlay,
-                            gameBoardReset,
-                            gameResetButton,
                         }
                     })();
 
-
-                    // Eventlistener for game reset button.
-                    gameBoard.gameResetButton.addEventListener('click', gameBoard.gameBoardReset())
