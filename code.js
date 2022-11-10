@@ -61,15 +61,13 @@ const gameBoard = (() => {
         playerWins = false
         cpuWins = false
     }
-    // Eventlistener for game reset button.
-    gameResetButton.addEventListener('click', gameBoardReset())
-
+    
     // When the player or computer picks a position,
     // This will update.
     // Then an evaluation will take place.
     // Once the game is won and event will be triggered to mod the dom.
-
-
+    
+    
     
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
@@ -106,31 +104,37 @@ const gameBoard = (() => {
                         ) {
                             cpuWins = true
                             playerWins = false
-                            } else if (
+                        } else if (
                             // Cross Wins CPU
-                                gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
-                                gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2
+                            gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
+                            gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2
                             ){
                                 cpuWins = true
                                 playerWins = false
                             } else {
                                 console.log('Whelp, how the hell did we get here????')
                             }
-    }
+                        }
+                        
+                        // CPU random play logic.
+                        const cpuRandomPlay = () => {
+                            let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
+                            function isThisEmpty(num) {
+                                return num == 0
+                            }
+                            
+                            console.log(rowOneOptions)
+                        }
+                        
+                        
+                        return {
+                            gameEval,
+                            cpuRandomPlay,
+                            gameBoardReset,
+                            gameResetButton,
+                        }
+                    })();
 
-    // CPU random play logic.
-    const cpuRandomPlay = () => {
-        let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
-        function isThisEmpty(num) {
-            return num == 0
-        }
-        
-        console.log(rowOneOptions)
-    }
 
-
-    return {
-        gameEval,
-        cpuRandomPlay,
-    }
-})();
+                    // Eventlistener for game reset button.
+                    gameBoard.gameResetButton.addEventListener('click', gameBoard.gameBoardReset())
