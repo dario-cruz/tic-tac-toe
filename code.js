@@ -74,42 +74,42 @@ const gameBoard = (() => {
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
         // Horizontal Wins Player
-        if (gameBoard.rowOne == [1,1,1] || gameBoard.rowTwo == [1,1,1] || gameBoard.rowThree == [1,1,1] ) {
+        if (gameBoardPositions.rowOne == [1,1,1] || gameBoardPositions.rowTwo == [1,1,1] || gameBoardPositions.rowThree == [1,1,1] ) {
             playerWins = true
             cpuWins = false
         } else if (
             // Vertical Wins Player
-            gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[0] == 1 && gameBoard.rowThree[0] == 1 ||
-            gameBoard.rowOne[1] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1 ||
-            gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[2] == 1 && gameBoard.rowThree[2] == 1 ) {
+            gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[0] == 1 && gameBoardPositions.rowThree[0] == 1 ||
+            gameBoardPositions.rowOne[1] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[1] == 1 ||
+            gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[2] == 1 && gameBoardPositions.rowThree[2] == 1 ) {
                 playerWins = true
             } else if (
                 // Cross Wins Player
-                gameBoard.rowOne[0] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[2] == 1 ||
-                gameBoard.rowOne[2] == 1 && gameBoard.rowTwo[1] == 1 && gameBoard.rowThree[1] == 1
+                gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[2] == 1 ||
+                gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[1] == 1
                 ) {
                     playerWins = true
                     cpuWins = false
                 } else if (
                     // Horizontal wins CPU
-                    gameBoard.rowOne == [2,2,2] ||
-                    gameBoard.rowTwo == [2,2,2] ||
-                    gameBoard.rowThree == [2,2,2]
+                    gameBoardPositions.rowOne == [2,2,2] ||
+                    gameBoardPositions.rowTwo == [2,2,2] ||
+                    gameBoardPositions.rowThree == [2,2,2]
                     ){
                         cpuWins = true
                         playerWins = false
                     } else if (
                         // Vertical Wins CPU
-                        gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[0] == 2 && gameBoard.rowThree[0] == 2 ||
-                        gameBoard.rowOne[1] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2 ||
-                        gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[2] == 2 && gameBoard.rowThree[2] == 2
+                        gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[0] == 2 && gameBoardPositions.rowThree[0] == 2 ||
+                        gameBoardPositions.rowOne[1] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2 ||
+                        gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[2] == 2 && gameBoardPositions.rowThree[2] == 2
                         ) {
                             cpuWins = true
                             playerWins = false
                             } else if (
                             // Cross Wins CPU
-                                gameBoard.rowOne[0] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[2] == 2 ||
-                                gameBoard.rowOne[2] == 2 && gameBoard.rowTwo[1] == 2 && gameBoard.rowThree[1] == 2
+                                gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
+                                gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2
                             ){
                                 cpuWins = true
                                 playerWins = false
@@ -120,11 +120,17 @@ const gameBoard = (() => {
 
     // CPU random play logic.
     const cpuRandomPlay = () => {
-        if (gameBoardPositions.rowOne)
+        let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
+        function isThisEmpty(num) {
+            return num == 0
+        }
+        
+        console.log(rowOneOptions)
     }
 
 
     return {
         gameEval,
+        cpuRandomPlay,
     }
 })();
