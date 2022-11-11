@@ -176,7 +176,16 @@ const gameBoard = (() => {
             rowTwo: gameBoardPositions.rowTwo.map(isThisEmpty),
             rowThree: gameBoardPositions.rowThree.map(isThisEmpty),
         }
+
+        // Selects a random row from the empty space object.
+        const gameRandomRow = (obj) => {
+            const rows = Object.keys(obj)
+            return rows[Math.floor(Math.random() * rows.length)]
+        };
         
+
+        console.log(gameRandomRow(cpuEmptySpaces))
+
         //Checks for empty board spaces
         //Returns array of true or false on locations.
         function isThisEmpty(num) {
@@ -186,7 +195,7 @@ const gameBoard = (() => {
                 return false
             }
         }
-        
+
         console.log(cpuEmptySpaces)        
     }
                         
