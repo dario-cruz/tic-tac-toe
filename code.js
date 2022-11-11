@@ -1,3 +1,21 @@
+// Defining parts of the gameboard.
+const gameBoardDomElem = document.getElementById('gameboard')
+const gameSquareTL = document.getElementById('topleft')
+const gameSquareML = document.getElementById('midleft')
+const gameSquareBL = document.getElementById('bottomleft')
+const gameSquareTM = document.getElementById('topmid')
+const gameSquareCM = document.getElementById('centermid')
+const gameSquareBM = document.getElementById('bottommid')
+const gameSquareTR = document.getElementById('topright')
+const gameSquareMR = document.getElementById('midright')
+const gameSquareBR = document.getElementById('bottomright')
+const gameResetButton = document.getElementById('resetgame')
+// Piece selection buttons
+const gameChooseX = document.getElementById('chooseX')
+const gameChooseO = document.getElementById('chooseO')
+
+
+
 // Factory function for creating player objects.
 const gamePlayer = (name, selection) => {
     return { name, selection }
@@ -9,21 +27,6 @@ console.log(dario)
 // Create gamebord object. 
 
 const gameBoard = (() => {
-    // Defining parts of the gameboard.
-    const gameBoardDomElem = document.getElementById('gameboard')
-    const gameSquareTL = document.getElementById('topleft')
-    const gameSquareML = document.getElementById('midleft')
-    const gameSquareBL = document.getElementById('bottomleft')
-    const gameSquareTM = document.getElementById('topmid')
-    const gameSquareCM = document.getElementById('centermid')
-    const gameSquareBM = document.getElementById('bottommid')
-    const gameSquareTR = document.getElementById('topright')
-    const gameSquareMR = document.getElementById('midright')
-    const gameSquareBR = document.getElementById('bottomright')
-    const gameResetButton = document.getElementById('resetgame')
-    // Piece selection buttons
-    const gameChooseX = document.getElementById('chooseX')
-    const gameChooseO = document.getElementById('chooseO')
 
     // Eventlistners for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
@@ -66,7 +69,9 @@ const gameBoard = (() => {
     }
 
     // Eventlistener for game reset button.
-    gameChooseO.addEventListener('click', gameBoardReset())
+    gameResetButton.addEventListener('click', () => {
+        gameBoardReset()
+    })
 
     // When the player or computer picks a position,
     // This will update.
@@ -117,28 +122,28 @@ const gameBoard = (() => {
                             } else {
                                 console.log('Whelp, how the hell did we get here????')
                             }
-                        }
+    }
                         
                         // CPU random play logic.
-                        const cpuRandomPlay = () => {
-                            let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
-                            let rowTwoOptions = gameBoardPositions.rowTwo.map(isThisEmpty)
-                            let rowThreeOptions = gameBoardPositions.rowThree.map(isThisEmpty)
-                            //Checks for empty board spaces
-                            function isThisEmpty(num) {
-                                if (num == 0) {
-                                    return num
-                                }
-                            }
-                            console.log(rowOneOptions)
-                            console.log(rowTwoOptions)
-                            console.log(rowThreeOptions)        
-                        }
+    const cpuRandomPlay = () => {
+        let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
+        let rowTwoOptions = gameBoardPositions.rowTwo.map(isThisEmpty)
+        let rowThreeOptions = gameBoardPositions.rowThree.map(isThisEmpty)
+        //Checks for empty board spaces
+        function isThisEmpty(num) {
+            if (num == 0) {
+                return num
+            }
+        }
+        console.log(rowOneOptions)
+        console.log(rowTwoOptions)
+        console.log(rowThreeOptions)        
+    }
                         
                         
-                        return {
-                            gameEval,
-                            cpuRandomPlay,
-                        }
-                    })();
+    return {
+        gameEval,
+        cpuRandomPlay,
+    }
+})();
 
