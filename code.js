@@ -170,10 +170,15 @@ const gameBoard = (() => {
                         
     // CPU random play logic.
     const cpuRandomPlay = () => {
-        let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
-        let rowTwoOptions = gameBoardPositions.rowTwo.map(isThisEmpty)
-        let rowThreeOptions = gameBoardPositions.rowThree.map(isThisEmpty)
+        
+        const cpuEmptySpaces = {
+            rowOne: gameBoardPositions.rowOne.map(isThisEmpty),
+            rowTwo: gameBoardPositions.rowTwo.map(isThisEmpty),
+            rowThree: gameBoardPositions.rowThree.map(isThisEmpty),
+        }
+        
         //Checks for empty board spaces
+        //Returns array of true or false on locations.
         function isThisEmpty(num) {
             if (num == 0) {
                 return true
@@ -181,9 +186,8 @@ const gameBoard = (() => {
                 return false
             }
         }
-        console.log(rowOneOptions)
-        console.log(rowTwoOptions)
-        console.log(rowThreeOptions)        
+        
+        console.log(cpuEmptySpaces)        
     }
                         
                         
