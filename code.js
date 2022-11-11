@@ -27,16 +27,8 @@ console.log(dario)
 // Create gamebord object. 
 
 const gameBoard = (() => {
-
-    // Eventlistners for gameBoard elements.
-    gameSquareTL.addEventListener('click', () => {
-        gameSquareTL.innerHTML = 'X'
-    })
-    gameSquareML.addEventListener('click', () => {
-        gameSquareML.innerHTML = 'X'
-    })
     
-    // Defining the gameboard positions in object. 
+    // Defining the game board positions in object. 
     const gameBoardPositions = {
         rowOne:[0,0,0],
         rowTwo:[0,0,0],
@@ -47,6 +39,57 @@ const gameBoard = (() => {
     let playerWins = false
     let cpuWins = false
     
+    // Players choice value.
+    let playerGamePiece = ""
+
+    // Allow for player to choose game piece.
+    gameChooseO.addEventListener('click', () => {
+        playerGamePiece = "O"
+    })
+    gameChooseX.addEventListener('click', () => {
+        playerGamePiece = "X"
+    })
+    
+    // EventListener for gameBoard elements.
+    gameSquareTL.addEventListener('click', () => {
+        gameSquareTL.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowOne[0] = `${playerGamePiece}`
+    })
+    gameSquareML.addEventListener('click', () => {
+        gameSquareML.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[0] = `${playerGamePiece}`
+    })
+    gameSquareBL.addEventListener('click', () => {
+        gameSquareBL.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowThree[0] = `${playerGamePiece}`
+    })
+    gameSquareTM.addEventListener('click', () => {
+        gameSquareTM.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowOne[1] = `${playerGamePiece}`
+    })
+    gameSquareCM.addEventListener('click', () => {
+        gameSquareCM.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[1] = `${playerGamePiece}`
+    })
+    gameSquareBM.addEventListener('click', () => {
+        gameSquareBM.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowThree[1] = `${playerGamePiece}`
+    })
+    gameSquareTR.addEventListener('click', () => {
+        gameSquareTR.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowOne[2] = `${playerGamePiece}`
+    })
+    gameSquareMR.addEventListener('click', () => {
+        gameSquareMR.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[2] = `${playerGamePiece}`
+    })
+    gameSquareBR.addEventListener('click', () => {
+        gameSquareBR.innerHTML = `${playerGamePiece}`
+        gameBoardPositions.rowThree[2] = `${playerGamePiece}`
+    })
+
+
+
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elements.
@@ -66,6 +109,7 @@ const gameBoard = (() => {
         // reset flags for cpu and player win.
         playerWins = false
         cpuWins = false
+        playerGamePiece = ""
     }
 
     // Eventlistener for game reset button.
@@ -124,7 +168,7 @@ const gameBoard = (() => {
                             }
     }
                         
-                        // CPU random play logic.
+    // CPU random play logic.
     const cpuRandomPlay = () => {
         let rowOneOptions = gameBoardPositions.rowOne.map(isThisEmpty)
         let rowTwoOptions = gameBoardPositions.rowTwo.map(isThisEmpty)
@@ -132,7 +176,9 @@ const gameBoard = (() => {
         //Checks for empty board spaces
         function isThisEmpty(num) {
             if (num == 0) {
-                return num
+                return true
+            } else {
+                return false
             }
         }
         console.log(rowOneOptions)
