@@ -41,51 +41,58 @@ const gameBoard = (() => {
     
     // Players choice value.
     let playerGamePiece = ""
+    let cpuGamePiece = ""
+
+    // Values of the game peices. 
+    let cpuPieceVal = 2
+    let playerPieceVal = 1
 
     // Allow for player to choose game piece.
     gameChooseO.addEventListener('click', () => {
         playerGamePiece = "O"
+        cpuGamePiece = "X"
     })
     gameChooseX.addEventListener('click', () => {
         playerGamePiece = "X"
+        cpuGamePiece = "O"
     })
     
     // EventListener for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
         gameSquareTL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[0] = `${playerGamePiece}`
+        gameBoardPositions.rowOne[0] = playerPieceVal
     })
     gameSquareML.addEventListener('click', () => {
         gameSquareML.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[0] = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[0] = playerPieceVal
     })
     gameSquareBL.addEventListener('click', () => {
         gameSquareBL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[0] = `${playerGamePiece}`
+        gameBoardPositions.rowThree[0] = playerPieceVal
     })
     gameSquareTM.addEventListener('click', () => {
         gameSquareTM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[1] = `${playerGamePiece}`
+        gameBoardPositions.rowOne[1] = playerPieceVal
     })
     gameSquareCM.addEventListener('click', () => {
         gameSquareCM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[1] = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[1] = playerPieceVal
     })
     gameSquareBM.addEventListener('click', () => {
         gameSquareBM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[1] = `${playerGamePiece}`
+        gameBoardPositions.rowThree[1] = playerPieceVal
     })
     gameSquareTR.addEventListener('click', () => {
         gameSquareTR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[2] = `${playerGamePiece}`
+        gameBoardPositions.rowOne[2] = playerPieceVal
     })
     gameSquareMR.addEventListener('click', () => {
         gameSquareMR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[2] = `${playerGamePiece}`
+        gameBoardPositions.rowTwo[2] = playerPieceVal
     })
     gameSquareBR.addEventListener('click', () => {
         gameSquareBR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[2] = `${playerGamePiece}`
+        gameBoardPositions.rowThree[2] = playerPieceVal
     })
 
 
@@ -110,6 +117,7 @@ const gameBoard = (() => {
         playerWins = false
         cpuWins = false
         playerGamePiece = ""
+        cpuGamePiece = ""
     }
 
     // Eventlistener for game reset button.
@@ -133,6 +141,7 @@ const gameBoard = (() => {
             gameBoardPositions.rowOne[1] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[1] == 1 ||
             gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[2] == 1 && gameBoardPositions.rowThree[2] == 1 ) {
                 playerWins = true
+                cpuWins = false
             } else if (
                 // Cross Wins Player
                 gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[2] == 1 ||
@@ -146,23 +155,23 @@ const gameBoard = (() => {
                     gameBoardPositions.rowTwo == [2,2,2] ||
                     gameBoardPositions.rowThree == [2,2,2]
                     ){
-                        cpuWins = true
                         playerWins = false
+                        cpuWins = true
                     } else if (
                         // Vertical Wins CPU
                         gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[0] == 2 && gameBoardPositions.rowThree[0] == 2 ||
                         gameBoardPositions.rowOne[1] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2 ||
                         gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[2] == 2 && gameBoardPositions.rowThree[2] == 2
                         ) {
-                            cpuWins = true
                             playerWins = false
+                            cpuWins = true
                         } else if (
                             // Cross Wins CPU
                             gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
                             gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2
                             ){
-                                cpuWins = true
                                 playerWins = false
+                                cpuWins = true
                             } else {
                                 console.log('Whelp, how the hell did we get here????')
                             }
@@ -182,13 +191,22 @@ const gameBoard = (() => {
             const rows = Object.keys(obj)
             return rows[Math.floor(Math.random() * rows.length)]
         };
-        
-        const gameRandonRowItem = () => {
-            let randomRow = gameRandomRow(cpuEmptySpaces)
-            return cpuEmptySpaces.randomRow[Math.floor(Math.random() * cpuEmptySpaces.randomRow.length)]
+        //Select random place from the array or the row. 
+        //Play the space if the it is free. 
+        const gameRandomRowItem = () => {
+            let randomRow = gameRandomRow(gameBoardPositions)
+            if (gameBoardPositions.hasOwnProperty(randomRow)) {
+                cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
+                // console.log(cpuSelection)
+            }
+            while (cpuSelection != 0) {
+                cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
+                console.log(cpuSelection)
+            }
+            return cpuSelection
         }
         
-        console.log(gameRandonRowItem())
+        console.log(gameRandomRowItem())
 
         //Checks for empty board spaces
         //Returns array of true or false on locations.
@@ -201,11 +219,12 @@ const gameBoard = (() => {
         }
         
         
-        console.log(cpuEmptySpaces)        
+        // console.log(cpuEmptySpaces)        
     }
                         
                         
     return {
+        gameBoardPositions,
         gameEval,
         cpuRandomPlay,
     }
