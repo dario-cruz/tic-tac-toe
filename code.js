@@ -183,8 +183,12 @@ const gameBoard = (() => {
             return rows[Math.floor(Math.random() * rows.length)]
         };
         
-
-        console.log(gameRandomRow(cpuEmptySpaces))
+        const gameRandonRowItem = () => {
+            let randomRow = gameRandomRow(cpuEmptySpaces)
+            return cpuEmptySpaces.randomRow[Math.floor(Math.random() * cpuEmptySpaces.randomRow.length)]
+        }
+        
+        console.log(gameRandonRowItem())
 
         //Checks for empty board spaces
         //Returns array of true or false on locations.
@@ -195,7 +199,8 @@ const gameBoard = (() => {
                 return false
             }
         }
-
+        
+        
         console.log(cpuEmptySpaces)        
     }
                         
