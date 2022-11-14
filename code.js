@@ -216,6 +216,7 @@ const gameBoard = (() => {
 
             if (gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] == 0) {
                 gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] = 2
+
             }
 
         }
@@ -244,3 +245,7 @@ const gameBoard = (() => {
     }
 })();
 
+
+
+// Does not seam to be away to choose random object prop and then make random selection of array on
+// said prop. Will need to change all obj out to array and go forward with that.
