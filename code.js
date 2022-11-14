@@ -213,19 +213,14 @@ const gameBoard = (() => {
         //Play the space if the it is free. 
         const gameRandomRowItem = () => {
             let randomRow = gameRandomRow(gameBoardPositions)
-            if (gameBoardPositions.hasOwnProperty(randomRow)) {
-                cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
-                // console.log(cpuSelection)
-                return cpuSelection
+
+            if (gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] == 0) {
+                gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] = 2
             }
-            while (cpuSelection != 0) {
-                cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
-                break;
-            }
-            return cpuSelection
+
         }
         
-        console.log(gameRandomRowItem())
+        gameRandomRowItem()
 
         //Checks for empty board spaces
         //Returns array of true or false on locations.
