@@ -96,6 +96,7 @@ const gameBoard = (() => {
         gameBoardPositions.rowThree[2] = playerPieceVal
     })
 
+
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elements.
