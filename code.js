@@ -32,7 +32,7 @@ const gameBoard = (() => {
     // Defining the game board positions in array.
     // Changed to array as could not get object to work. 
     // Need to investigate further. 
-    const gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
+    let gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
     
     // Define player status'
     let playerWins = false
@@ -43,8 +43,8 @@ const gameBoard = (() => {
     let cpuGamePiece = ""
 
     // Values of the game pieces. 
-    let cpuPieceVal = 2
-    let playerPieceVal = 1
+    // let cpuPieceVal = 2
+    // let playerPieceVal = 1
 
     // Allow for player to choose game piece.
     gameChooseO.addEventListener('click', () => {
@@ -59,39 +59,39 @@ const gameBoard = (() => {
     // EventListener for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
         gameSquareTL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[0] = playerPieceVal
+        gameBoardPositions[0] = `${playerGamePiece}`
     })
     gameSquareML.addEventListener('click', () => {
         gameSquareML.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[4] = playerPieceVal
+        gameBoardPositions[3] = `${playerGamePiece}`
     })
     gameSquareBL.addEventListener('click', () => {
         gameSquareBL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[7] = playerPieceVal
+        gameBoardPositions[6] = `${playerGamePiece}`
     })
     gameSquareTM.addEventListener('click', () => {
         gameSquareTM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[2] = playerPieceVal
+        gameBoardPositions[1] = `${playerGamePiece}`
     })
     gameSquareCM.addEventListener('click', () => {
         gameSquareCM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[5] = playerPieceVal
+        gameBoardPositions[4] = `${playerGamePiece}`
     })
     gameSquareBM.addEventListener('click', () => {
         gameSquareBM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[8] = playerPieceVal
+        gameBoardPositions[7] = `${playerGamePiece}`
     })
     gameSquareTR.addEventListener('click', () => {
         gameSquareTR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[3] = playerPieceVal
+        gameBoardPositions[2] = `${playerGamePiece}`
     })
     gameSquareMR.addEventListener('click', () => {
         gameSquareMR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[6] = playerPieceVal
+        gameBoardPositions[5] = `${playerGamePiece}`
     })
     gameSquareBR.addEventListener('click', () => {
         gameSquareBR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[9] = playerPieceVal
+        gameBoardPositions[8] = `${playerGamePiece}`
     })
 
 
@@ -108,9 +108,7 @@ const gameBoard = (() => {
         gameSquareTM.innerHTML = ""
         gameSquareTR.innerHTML = ""
         // reset the object and arrays
-        gameBoardPositions.rowOne = [0,0,0]
-        gameBoardPositions.rowTwo = [0,0,0]
-        gameBoardPositions.rowThree = [0,0,0]
+        gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
         // reset flags for cpu and player win.
         playerWins = false
         cpuWins = false
@@ -130,60 +128,57 @@ const gameBoard = (() => {
     // Once the game is won and event will be triggered to mod the dom.
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
-        // Horizontal Wins Player
-        if (gameBoardPositions.rowOne == [1,1,1] || gameBoardPositions.rowTwo == [1,1,1] || gameBoardPositions.rowThree == [1,1,1] ) {
+        if(playerGamePiece == "" && cpuGamePiece == "") {
+            // If the player hasn't made a selection. 
+            gameStatus.innerHTML = "Hey man, select a game piece"
+        } else if (gameBoardPositions[0] == playerGamePiece && gameBoardPositions[1] == playerGamePiece && gameBoardPositions[2] == playerGamePiece ||
+            // Horizontal Wins Player
+            gameBoardPositions[3] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[5] == playerGamePiece ||
+            gameBoardPositions[6] == playerGamePiece && gameBoardPositions[7] == playerGamePiece && gameBoardPositions[8] == playerGamePiece) {
             playerWins = true
             cpuWins = false
             gameStatus.innerHTML = "The Player Wins! 😁"
         } else if (
             // Vertical Wins Player
-            gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[0] == 1 && gameBoardPositions.rowThree[0] == 1 ||
-            gameBoardPositions.rowOne[1] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[1] == 1 ||
-            gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[2] == 1 && gameBoardPositions.rowThree[2] == 1 ) {
+            gameBoardPositions[0] == playerGamePiece && gameBoardPositions[3] == playerGamePiece && gameBoardPositions[6] == playerGamePiece ||
+            gameBoardPositions[1] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[7] == playerGamePiece ||
+            gameBoardPositions[2] == playerGamePiece && gameBoardPositions[5] == playerGamePiece && gameBoardPositions[8] == playerGamePiece) {
+            playerWins = true
+            cpuWins = false
+            gameStatus.innerHTML = "The Player Wins! 😁"
+        } else if (
+            // Cross Wins Player
+            gameBoardPositions[0] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[8] == playerGamePiece ||
+            gameBoardPositions[2] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[6] == playerGamePiece) {
                 playerWins = true
                 cpuWins = false
                 gameStatus.innerHTML = "The Player Wins! 😁"
-
-            } else if (
-                // Cross Wins Player
-                gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[2] == 1 ||
-                gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[1] == 1
-                ) {
-                    playerWins = true
-                    cpuWins = false
-                    gameStatus.innerHTML = "The Player Wins! 😁"
-
-                } else if (
-                    // Horizontal wins CPU
-                    gameBoardPositions.rowOne == [2,2,2] ||
-                    gameBoardPositions.rowTwo == [2,2,2] ||
-                    gameBoardPositions.rowThree == [2,2,2]
-                    ){
-                        playerWins = false
-                        cpuWins = true
-                        gameStatus.innerHTML = "The CPU Wins.... 😵"
-                    } else if (
-                        // Vertical Wins CPU
-                        gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[0] == 2 && gameBoardPositions.rowThree[0] == 2 ||
-                        gameBoardPositions.rowOne[1] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2 ||
-                        gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[2] == 2 && gameBoardPositions.rowThree[2] == 2
-                        ) {
-                            playerWins = false
-                            cpuWins = true
-                            gameStatus.innerHTML = "The CPU Wins.... 😵"    
-
-                        } else if (
-                            // Cross Wins CPU
-                            gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
-                            gameBoardPositions.rowOne[2] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[1] == 2
-                            ){
-                                playerWins = false
-                                cpuWins = true
-                                gameStatus.innerHTML = "The CPU Wins.... 😵"
-
-                            } else {
-                                gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
-                            }
+        } else if (
+            // Horizontal wins CPU
+            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[1] == cpuGamePiece && gameBoardPositions[2] == cpuGamePiece ||
+            gameBoardPositions[3] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[5] == cpuGamePiece ||
+            gameBoardPositions[6] == cpuGamePiece && gameBoardPositions[7] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece) {
+                playerWins = false
+                cpuWins = true
+                gameStatus.innerHTML = "The CPU Wins.... 😵"
+        } else if (
+            // Vertical Wins CPU
+            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[3] == cpuGamePiece && gameBoardPositions[6] == cpuGamePiece ||
+            gameBoardPositions[1] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[7] == cpuGamePiece ||
+            gameBoardPositions[2] == cpuGamePiece && gameBoardPositions[5] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece) {
+                playerWins = false
+                cpuWins = true
+                gameStatus.innerHTML = "The CPU Wins.... 😵"    
+        } else if (
+            // Cross Wins CPU
+            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece ||
+            gameBoardPositions[2] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[6] == cpuGamePiece) {
+                playerWins = false
+                cpuWins = true
+                gameStatus.innerHTML = "The CPU Wins.... 😵"
+        } else {
+                gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
+        }
     }
     
     // Condition checking for if a person wins the game.
