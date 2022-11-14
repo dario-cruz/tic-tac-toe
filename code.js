@@ -239,6 +239,3 @@ const gameBoard = (() => {
 })();
 
 
-
-// Does not seam to be away to choose random object prop and then make random selection of array on
-// said prop. Will need to change all obj out to array and go forward with that.
