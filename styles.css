@@ -9,10 +9,11 @@
 /* Allows for centering of gameboard elems. */
 .bodygrid {
     display: grid;
-    grid-template: 1fr 600px 1fr / 1fr 600px 1fr;
+    grid-template: 1fr 600px 1fr / 1fr 600px 1fr 1fr;
     grid-template-areas: 
     "header header header"
     "left mid right"
+    "status status status"
     "footer footer footer";
 }
 /* Positoning for Header and footer areas. */
@@ -20,6 +21,11 @@
     grid-area: header;
     height: 80px;
     width: 100vw;
+}
+.bodygrid > .gamestatus {
+    grid-area: status;
+    width: 100vw;
+    text-align: center;
 }
 .bodygrid > .footer {
     grid-area: footer;

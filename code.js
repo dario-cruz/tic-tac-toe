@@ -13,7 +13,8 @@ const gameResetButton = document.getElementById('resetgame')
 // Piece selection buttons
 const gameChooseX = document.getElementById('chooseX')
 const gameChooseO = document.getElementById('chooseO')
-
+// Game status area, will tell the user who won or if the game is a tie.
+const gameStatus = document.getElementById('condition')
 
 
 // Factory function for creating player objects.
@@ -24,7 +25,7 @@ const gamePlayer = (name, selection) => {
 const dario = gamePlayer("Dario", "x")
 console.log(dario)
 
-// Create gamebord object. 
+// Create gameboard object. 
 
 const gameBoard = (() => {
     
@@ -43,7 +44,7 @@ const gameBoard = (() => {
     let playerGamePiece = ""
     let cpuGamePiece = ""
 
-    // Values of the game peices. 
+    // Values of the game pieces. 
     let cpuPieceVal = 2
     let playerPieceVal = 1
 
@@ -95,8 +96,6 @@ const gameBoard = (() => {
         gameBoardPositions.rowThree[2] = playerPieceVal
     })
 
-
-
     // Reset for gameboard
     const gameBoardReset = () => {
         // reset the dom elements.
@@ -118,6 +117,7 @@ const gameBoard = (() => {
         cpuWins = false
         playerGamePiece = ""
         cpuGamePiece = ""
+        gameStatus.innerHTML = "Please choose a game piece."
     }
 
     // Eventlistener for game reset button.
@@ -173,10 +173,17 @@ const gameBoard = (() => {
                                 playerWins = false
                                 cpuWins = true
                             } else {
-                                console.log('Whelp, how the hell did we get here????')
+                                gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
                             }
     }
-                        
+    
+    // Condition checking for if a person wins the game.
+    const checkWinner = () => {
+        if (playerWins == true) {
+
+        }
+    }
+
     // CPU random play logic.
     const cpuRandomPlay = () => {
         
@@ -198,10 +205,11 @@ const gameBoard = (() => {
             if (gameBoardPositions.hasOwnProperty(randomRow)) {
                 cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
                 // console.log(cpuSelection)
+                return cpuSelection
             }
             while (cpuSelection != 0) {
                 cpuSelection = gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)]
-                console.log(cpuSelection)
+                break;
             }
             return cpuSelection
         }
