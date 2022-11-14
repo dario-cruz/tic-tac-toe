@@ -29,12 +29,10 @@ console.log(dario)
 
 const gameBoard = (() => {
     
-    // Defining the game board positions in object. 
-    const gameBoardPositions = {
-        rowOne:[0,0,0],
-        rowTwo:[0,0,0],
-        rowThree:[0,0,0]
-    }
+    // Defining the game board positions in array.
+    // Changed to array as could not get object to work. 
+    // Need to investigate further. 
+    const gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
     
     // Define player status'
     let playerWins = false
@@ -61,39 +59,39 @@ const gameBoard = (() => {
     // EventListener for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
         gameSquareTL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[0] = playerPieceVal
+        gameBoardPositions[0] = playerPieceVal
     })
     gameSquareML.addEventListener('click', () => {
         gameSquareML.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[0] = playerPieceVal
+        gameBoardPositions[4] = playerPieceVal
     })
     gameSquareBL.addEventListener('click', () => {
         gameSquareBL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[0] = playerPieceVal
+        gameBoardPositions[7] = playerPieceVal
     })
     gameSquareTM.addEventListener('click', () => {
         gameSquareTM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[1] = playerPieceVal
+        gameBoardPositions[2] = playerPieceVal
     })
     gameSquareCM.addEventListener('click', () => {
         gameSquareCM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[1] = playerPieceVal
+        gameBoardPositions[5] = playerPieceVal
     })
     gameSquareBM.addEventListener('click', () => {
         gameSquareBM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[1] = playerPieceVal
+        gameBoardPositions[8] = playerPieceVal
     })
     gameSquareTR.addEventListener('click', () => {
         gameSquareTR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowOne[2] = playerPieceVal
+        gameBoardPositions[3] = playerPieceVal
     })
     gameSquareMR.addEventListener('click', () => {
         gameSquareMR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowTwo[2] = playerPieceVal
+        gameBoardPositions[6] = playerPieceVal
     })
     gameSquareBR.addEventListener('click', () => {
         gameSquareBR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions.rowThree[2] = playerPieceVal
+        gameBoardPositions[9] = playerPieceVal
     })
 
 
