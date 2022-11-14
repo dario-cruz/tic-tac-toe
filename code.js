@@ -135,6 +135,7 @@ const gameBoard = (() => {
         if (gameBoardPositions.rowOne == [1,1,1] || gameBoardPositions.rowTwo == [1,1,1] || gameBoardPositions.rowThree == [1,1,1] ) {
             playerWins = true
             cpuWins = false
+            gameStatus.innerHTML = "The Player Wins! 😁"
         } else if (
             // Vertical Wins Player
             gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[0] == 1 && gameBoardPositions.rowThree[0] == 1 ||
@@ -142,6 +143,8 @@ const gameBoard = (() => {
             gameBoardPositions.rowOne[2] == 1 && gameBoardPositions.rowTwo[2] == 1 && gameBoardPositions.rowThree[2] == 1 ) {
                 playerWins = true
                 cpuWins = false
+                gameStatus.innerHTML = "The Player Wins! 😁"
+
             } else if (
                 // Cross Wins Player
                 gameBoardPositions.rowOne[0] == 1 && gameBoardPositions.rowTwo[1] == 1 && gameBoardPositions.rowThree[2] == 1 ||
@@ -149,6 +152,8 @@ const gameBoard = (() => {
                 ) {
                     playerWins = true
                     cpuWins = false
+                    gameStatus.innerHTML = "The Player Wins! 😁"
+
                 } else if (
                     // Horizontal wins CPU
                     gameBoardPositions.rowOne == [2,2,2] ||
@@ -157,6 +162,7 @@ const gameBoard = (() => {
                     ){
                         playerWins = false
                         cpuWins = true
+                        gameStatus.innerHTML = "The CPU Wins.... 😵"
                     } else if (
                         // Vertical Wins CPU
                         gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[0] == 2 && gameBoardPositions.rowThree[0] == 2 ||
@@ -165,6 +171,8 @@ const gameBoard = (() => {
                         ) {
                             playerWins = false
                             cpuWins = true
+                            gameStatus.innerHTML = "The CPU Wins.... 😵"    
+
                         } else if (
                             // Cross Wins CPU
                             gameBoardPositions.rowOne[0] == 2 && gameBoardPositions.rowTwo[1] == 2 && gameBoardPositions.rowThree[2] == 2 ||
@@ -172,6 +180,8 @@ const gameBoard = (() => {
                             ){
                                 playerWins = false
                                 cpuWins = true
+                                gameStatus.innerHTML = "The CPU Wins.... 😵"
+
                             } else {
                                 gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
                             }
