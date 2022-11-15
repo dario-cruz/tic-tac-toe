@@ -16,37 +16,62 @@ const gameChooseO = document.getElementById('chooseO')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
 
-// Modal for player selection.
-const startModal = document.getElementById('start_modal')
-const modalBtn = document.getElementById('submit_button')
-window.addEventListener('load', () => {
-    startModal.style.display = "block"
-})
-window.addEventListener('click', () => {
-    if (event.target == startModal) {
-        startModal.style.display = "none"
+// Game start module | IIFE
+const gameStart = (() => {
+
+    // Factory function for creating player objects.
+    const gamePlayer = (name, selection) => {
+        return { name, selection }
     }
-})
-// 
 
-// Override form behavior can capture data.
-const gameForm = document.getElementById('game_data')
-gameForm.addEventListener('submit', () => {
-    event.preventDefault
-    const formData = new FormData(gameForm)
-    startModal.style.display = "none"
-    console.log(formData)
-    return formData
-})
+    // Modal for player selection.
+    const startModal = document.getElementById('start_modal')
+    const modalBtn = document.getElementById('submit_button')
+    window.addEventListener('load', () => {
+        startModal.style.display = "block"
+    })
+    window.addEventListener('click', () => {
+        if (event.target == startModal) {
+            startModal.style.display = "none"
+        }
+    })
+    // 
+    
+    // Override form behavior can capture data.
+    const gameForm = document.getElementById('game_data')
+    gameForm.addEventListener('submit', () => {
+        // Stop page reload.
+        event.preventDefault()
+        // Extract form data.
+        const formData = new FormData(gameForm)
+        // Close modal.
+        startModal.style.display = "none"
+        // Create empty obj and convert from weird FD obj to usable one.
+        const formDataObj = {}
+        formData.forEach((value,key) => (formDataObj[key] = value))
+        console.log(formDataObj)
+        // Create player objects from processed data. 
+        const playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
+        const playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
+        
+        console.log(formData)
+        console.log(playerOne)
+        console.log(playerTwo)
+
+        return {
+            formData,
+            playerOne,
+            playerTwo,
+        }
+    })
+})()
 
 
-// Factory function for creating player objects.
-const gamePlayer = (name, selection) => {
-    return { name, selection }
-}
+
+
 // Testing factory func.
-const dario = gamePlayer("Dario", "x")
-console.log(dario)
+// const dario = gamePlayer("Dario", "x")
+// console.log(dario)
 
 // Create gameboard object. 
 
