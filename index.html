@@ -9,6 +9,29 @@
     <script src="./code.js" defer></script>
 </head>
 <body>
+    <div class="modal" id="start_modal">
+        <div class="modal-content">
+            <form id="game_data" onsubmit="return false" action="">
+                <label for="player_one_name">Player One Name</label>
+                <input name="player_one_name" type="text" id="player_one_name" required>
+                <select name="Select Game Piece" id="player_one_select" required>
+                    <option disabled selected value></option>
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+
+                <label for="player_two_name">Player Two Name</label>
+                <input name="player_two_name" type="text" id="player_two_name" required>
+                <select name="Select Game Piece" id="player_two_select" required>
+                    <option disabled selected value></option>
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+
+                <button type="submit" id="submit_button">Start Game</button>
+            </form>
+        </div>
+    </div>
     <div class="bodygrid">
         <div class="header">
             <h1 class="title">Tic-Tac-Toe</h1>
@@ -17,15 +40,15 @@
             <button id="resetgame">Reset Game</button>
         </div>
         <div id="gameboard" class="gameboard">
-            <div cell="1" class="square" id="topleft"></div>
-            <div cell="4" class="square" id="midleft"></div>
-            <div cell="7" class="square" id="bottomleft"></div>
-            <div cell="2" class="square" id="topmid"></div>
-            <div cell="5" class="square" id="centermid"></div>
-            <div cell="8" class="square" id="bottommid"></div>
-            <div cell="3" class="square" id="topright"></div>
-            <div cell="6" class="square" id="midright"></div>
-            <div cell="9" class="square" id="bottomright"></div>
+            <div cell="0" class="square" id="topleft"></div>
+            <div cell="3" class="square" id="midleft"></div>
+            <div cell="6" class="square" id="bottomleft"></div>
+            <div cell="1" class="square" id="topmid"></div>
+            <div cell="4" class="square" id="centermid"></div>
+            <div cell="7" class="square" id="bottommid"></div>
+            <div cell="2" class="square" id="topright"></div>
+            <div cell="5" class="square" id="midright"></div>
+            <div cell="8" class="square" id="bottomright"></div>
         </div>
         <div class="gamestatus">
             <h1 id="condition">Select Game Piece.</h1>

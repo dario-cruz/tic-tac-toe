@@ -16,6 +16,29 @@ const gameChooseO = document.getElementById('chooseO')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
 
+// Modal for player selection.
+const startModal = document.getElementById('start_modal')
+const modalBtn = document.getElementById('submit_button')
+window.addEventListener('load', () => {
+    startModal.style.display = "block"
+})
+window.addEventListener('click', () => {
+    if (event.target == startModal) {
+        startModal.style.display = "none"
+    }
+})
+// 
+
+// Override form behavior can capture data.
+const gameForm = document.getElementById('game_data')
+gameForm.addEventListener('submit', () => {
+    event.preventDefault
+    const formData = new FormData(gameForm)
+    startModal.style.display = "none"
+    console.log(formData)
+    return formData
+})
+
 
 // Factory function for creating player objects.
 const gamePlayer = (name, selection) => {
@@ -189,7 +212,26 @@ const gameBoard = (() => {
     }
 
     // CPU random play logic.
-    const cpuRandomPlay = () => {
+    const cpuPlay = () => {
+        let arrayLength = gameBoardPositions.length
+        for (let i = 0; i < arrayLength; i++) {
+            if (gameBoardPositions[i] !=  `${cpuGamePiece}` || gameBoardPositions[i] != `${playerGamePiece}`) {
+                gameBoardPositions[i] = `${cpuGamePiece}`
+                let boardPlace = document.querySelector('[cell=`${i}`]')
+                boardPlace.innerHTML = `${cpuGamePiece}`
+                break;
+            }
+
+        }
+
+    }
+
+
+
+
+
+
+    const cpuRandomPlayObj = () => {
         
         const cpuEmptySpaces = {
             rowOne: gameBoardPositions.rowOne.map(isThisEmpty),
@@ -234,7 +276,7 @@ const gameBoard = (() => {
     return {
         gameBoardPositions,
         gameEval,
-        cpuRandomPlay,
+        cpuPlay,
     }
 })();
 
