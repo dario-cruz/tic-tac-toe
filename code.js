@@ -58,6 +58,7 @@ const gameStart = (() => {
         console.log(playerTwo)
 
         return {
+            // Return all needed vals and keep the rest private. 
             playerOne,
             playerTwo,
         }
@@ -66,13 +67,7 @@ const gameStart = (() => {
 
 
 
-
-// Testing factory func.
-// const dario = gamePlayer("Dario", "x")
-// console.log(dario)
-
-// Create gameboard object. 
-
+// Game functionality in Module pattern and IIFE. 
 const gameBoard = (() => {
     
     // Defining the game board positions in array.
@@ -81,17 +76,9 @@ const gameBoard = (() => {
     let gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
     
     // Define player status'
-    let playerWins = false
-    let cpuWins = false
+    let playerOneWins = false
+    let playerTwoWins = false
     
-    // Players choice value.
-    let playerGamePiece = ""
-    let cpuGamePiece = ""
-
-    // Values of the game pieces. 
-    // let cpuPieceVal = 2
-    // let playerPieceVal = 1
-
     // Allow for player to choose game piece.
     gameChooseO.addEventListener('click', () => {
         playerGamePiece = "O"
@@ -141,7 +128,7 @@ const gameBoard = (() => {
     })
 
 
-    // Reset for gameboard
+    // Reset for game board.
     const gameBoardReset = () => {
         // reset the dom elements.
         gameSquareBL.innerHTML = ""
