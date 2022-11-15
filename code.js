@@ -54,12 +54,10 @@ const gameStart = (() => {
         const playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
         const playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
         
-        console.log(formData)
         console.log(playerOne)
         console.log(playerTwo)
 
         return {
-            formData,
             playerOne,
             playerTwo,
         }
