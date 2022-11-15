@@ -10,61 +10,55 @@ const gameSquareTR = document.getElementById('topright')
 const gameSquareMR = document.getElementById('midright')
 const gameSquareBR = document.getElementById('bottomright')
 const gameResetButton = document.getElementById('resetgame')
-// Piece selection buttons
-const gameChooseX = document.getElementById('chooseX')
-const gameChooseO = document.getElementById('chooseO')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
 
-// Game start module | IIFE
-const gameStart = (() => {
+// Factory function for creating player objects.
+const gamePlayer = (name, selection) => {
+    return { name, selection }
+}
 
-    // Factory function for creating player objects.
-    const gamePlayer = (name, selection) => {
-        return { name, selection }
-    }
-
-    // Modal for player selection.
-    const startModal = document.getElementById('start_modal')
-    const modalBtn = document.getElementById('submit_button')
-    window.addEventListener('load', () => {
-        startModal.style.display = "block"
-    })
-    window.addEventListener('click', () => {
-        if (event.target == startModal) {
-            startModal.style.display = "none"
-        }
-    })
-    // 
-    
-    // Override form behavior can capture data.
-    const gameForm = document.getElementById('game_data')
-    gameForm.addEventListener('submit', () => {
-        // Stop page reload.
-        event.preventDefault()
-        // Extract form data.
-        const formData = new FormData(gameForm)
-        // Close modal.
+// Modal for player selection.
+const startModal = document.getElementById('start_modal')
+const modalBtn = document.getElementById('submit_button')
+window.addEventListener('load', () => {
+    startModal.style.display = "block"
+})
+window.addEventListener('click', () => {
+    if (event.target == startModal) {
         startModal.style.display = "none"
-        // Create empty obj and convert from weird FD obj to usable one.
-        const formDataObj = {}
-        formData.forEach((value,key) => (formDataObj[key] = value))
-        console.log(formDataObj)
-        // Create player objects from processed data. 
-        const playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
-        const playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
-        
-        console.log(playerOne)
-        console.log(playerTwo)
+    }
+})
 
-        return {
-            // Return all needed vals and keep the rest private. 
-            playerOne,
-            playerTwo,
-        }
-    })
-})()
+let playerOne = {}
+let playerTwo = {}
 
+// Override form behavior can capture data.
+const gameForm = document.getElementById('game_data')
+gameForm.addEventListener('submit', () => {
+    // Stop page reload.
+    event.preventDefault()
+    // Extract form data.
+    const formData = new FormData(gameForm)
+    // Close modal.
+    startModal.style.display = "none"
+    // Create empty obj and convert from weird FD obj to usable one.
+    const formDataObj = {}
+    formData.forEach((value,key) => (formDataObj[key] = value))
+    console.log(formDataObj)
+    // Create player objects from processed data. 
+    playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
+    playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
+    
+    console.log(playerOne)
+    console.log(playerTwo)
+
+    return {
+        // Return all needed vals and keep the rest private. 
+        playerOne,
+        playerTwo,
+    }
+})
 
 
 // Game functionality in Module pattern and IIFE. 
@@ -78,7 +72,7 @@ const gameBoard = (() => {
     // Define player status'
     let playerOneWins = false
     let playerTwoWins = false
-    
+
     // Allow for player to choose game piece.
     gameChooseO.addEventListener('click', () => {
         playerGamePiece = "O"
@@ -89,6 +83,11 @@ const gameBoard = (() => {
         cpuGamePiece = "O"
     })
     
+    document.querySelectorAll('square').forEach.addEventListener('click', () => {
+        this.innerHTML = playerOne.selection
+        a
+    })
+
     // EventListener for gameBoard elements.
     gameSquareTL.addEventListener('click', () => {
         gameSquareTL.innerHTML = `${playerGamePiece}`
