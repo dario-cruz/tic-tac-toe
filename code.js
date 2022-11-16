@@ -95,6 +95,7 @@ const gameBoard = (() => {
                 item.innerHTML = playerTwo.selection
                 let  attributeNum = Number(item.getAttribute('cell'))
                 gameBoardPositions[attributeNum] = playerTwo.selection
+                gameEval()
             })
         })
     }
