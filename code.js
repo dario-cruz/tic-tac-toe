@@ -10,6 +10,7 @@ const gameSquareTR = document.getElementById('topright')
 const gameSquareMR = document.getElementById('midright')
 const gameSquareBR = document.getElementById('bottomright')
 const gameResetButton = document.getElementById('resetgame')
+const gameResetScore = document.getElementById('resetscore')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
 
@@ -60,7 +61,6 @@ gameForm.addEventListener('submit', () => {
     }
 })
 
-
 // Game functionality in Module pattern and IIFE. 
 const gameBoard = (() => {
     
@@ -100,7 +100,6 @@ const gameBoard = (() => {
         })
     }
     
-
     // Reset for game board.
     const gameBoardReset = () => {
         // reset the dom elements.
@@ -150,6 +149,10 @@ const gameBoard = (() => {
     // Eventlistener for game reset button.
     gameResetButton.addEventListener('click', () => {
         gameBoardReset()
+    })
+    // Game score reset.
+    gameResetScore.addEventListener('click', () => {
+        gameScore.resetCount()
     })
 
     // When the player or computer picks a position,
