@@ -82,13 +82,14 @@ const gameBoard = (() => {
     // When its playerOnes turn add specific eventlistener.
     const playerOneTurn = () => {
         let gameSquares = document.querySelectorAll('.square')
+        // gameSquares.replaceWith(gameSquares.cloneNode(true))
         console.log(gameSquares)
         gameSquares.forEach(item => {
             item.addEventListener('click', () => {
                 item.innerHTML = playerOne.selection
                 let  attributeNum = Number(item.getAttribute('cell'))
                 gameBoardPositions[attributeNum] = playerOne.selection
-                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
                 playerTwoTurn()
                 gameEval()
             })
@@ -98,13 +99,14 @@ const gameBoard = (() => {
     // When its playerTwos turn add specific eventlistener.
     const playerTwoTurn = () => {
         let gameSquares = document.querySelectorAll('.square')
+        // gameSquares.replaceWith(gameSquares.cloneNode(true))
         console.log(gameSquares)
         gameSquares.forEach(item => {
             item.addEventListener('click', () => {
                 item.innerHTML = playerTwo.selection
                 let  attributeNum = Number(item.getAttribute('cell'))
                 gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
                 playerOneTurn()
                 gameEval()
             })
