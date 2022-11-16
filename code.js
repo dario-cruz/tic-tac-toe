@@ -72,59 +72,34 @@ const gameBoard = (() => {
     // Define player status'
     let playerOneWins = false
     let playerTwoWins = false
-
-    // Allow for player to choose game piece.
-    gameChooseO.addEventListener('click', () => {
-        playerGamePiece = "O"
-        cpuGamePiece = "X"
-    })
-    gameChooseX.addEventListener('click', () => {
-        playerGamePiece = "X"
-        cpuGamePiece = "O"
-    })
     
-    document.querySelectorAll('square').forEach.addEventListener('click', () => {
-        this.innerHTML = playerOne.selection
-        a
-    })
+    // When its playerOnes turn add specific eventlistener.
+    const playerOneTurn = () => {
+        let gameSquares = document.querySelectorAll('.square')
+        console.log(gameSquares)
+        gameSquares.forEach(item => {
+            item.addEventListener('click', () => {
+                item.innerHTML = playerOne.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerOne.selection
+            })
+        })
+    }
 
-    // EventListener for gameBoard elements.
-    gameSquareTL.addEventListener('click', () => {
-        gameSquareTL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[0] = `${playerGamePiece}`
-    })
-    gameSquareML.addEventListener('click', () => {
-        gameSquareML.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[3] = `${playerGamePiece}`
-    })
-    gameSquareBL.addEventListener('click', () => {
-        gameSquareBL.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[6] = `${playerGamePiece}`
-    })
-    gameSquareTM.addEventListener('click', () => {
-        gameSquareTM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[1] = `${playerGamePiece}`
-    })
-    gameSquareCM.addEventListener('click', () => {
-        gameSquareCM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[4] = `${playerGamePiece}`
-    })
-    gameSquareBM.addEventListener('click', () => {
-        gameSquareBM.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[7] = `${playerGamePiece}`
-    })
-    gameSquareTR.addEventListener('click', () => {
-        gameSquareTR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[2] = `${playerGamePiece}`
-    })
-    gameSquareMR.addEventListener('click', () => {
-        gameSquareMR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[5] = `${playerGamePiece}`
-    })
-    gameSquareBR.addEventListener('click', () => {
-        gameSquareBR.innerHTML = `${playerGamePiece}`
-        gameBoardPositions[8] = `${playerGamePiece}`
-    })
+    // When its playerTwos turn add specific eventlistener.
+    const playerTwoTurn = () => {
+        let gameSquares = document.querySelectorAll('.square')
+        console.log(gameSquares)
+        gameSquares.forEach(item => {
+            item.addEventListener('click', () => {
+                item.innerHTML = playerTwo.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerTwo.selection
+            })
+        })
+    }
+    
+  
 
 
     // Reset for game board.
@@ -142,11 +117,15 @@ const gameBoard = (() => {
         // reset the object and arrays
         gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
         // reset flags for cpu and player win.
-        playerWins = false
-        cpuWins = false
-        playerGamePiece = ""
-        cpuGamePiece = ""
+        playerOneWins = false
+        playerTwoWins = false
+        playerOne = {}
+        playerTwo = {}
         gameStatus.innerHTML = "Please choose a game piece."
+    }
+
+    const gameScore = () => {
+        
     }
 
     // Eventlistener for game reset button.
@@ -160,51 +139,51 @@ const gameBoard = (() => {
     // Once the game is won and event will be triggered to mod the dom.
     // Board Eval Logic, detects who won the game. 
     const gameEval = () => {
-        if(playerGamePiece == "" && cpuGamePiece == "") {
-            // If the player hasn't made a selection. 
+        if(playerOne.selection == "" && playerTwo.selection == "") {
+            // If the players haven't made a selection. 
             gameStatus.innerHTML = "Hey man, select a game piece"
-        } else if (gameBoardPositions[0] == playerGamePiece && gameBoardPositions[1] == playerGamePiece && gameBoardPositions[2] == playerGamePiece ||
-            // Horizontal Wins Player
-            gameBoardPositions[3] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[5] == playerGamePiece ||
-            gameBoardPositions[6] == playerGamePiece && gameBoardPositions[7] == playerGamePiece && gameBoardPositions[8] == playerGamePiece) {
+        } else if (gameBoardPositions[0] == playerOne.selection && gameBoardPositions[1] == playerOne.selection && gameBoardPositions[2] == playerOne.selection ||
+            // Horizontal Wins PlayerOne
+            gameBoardPositions[3] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[5] == playerOne.selection ||
+            gameBoardPositions[6] == playerOne.selection && gameBoardPositions[7] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerWins = true
             cpuWins = false
             gameStatus.innerHTML = "The Player Wins! 😁"
         } else if (
-            // Vertical Wins Player
-            gameBoardPositions[0] == playerGamePiece && gameBoardPositions[3] == playerGamePiece && gameBoardPositions[6] == playerGamePiece ||
-            gameBoardPositions[1] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[7] == playerGamePiece ||
-            gameBoardPositions[2] == playerGamePiece && gameBoardPositions[5] == playerGamePiece && gameBoardPositions[8] == playerGamePiece) {
+            // Vertical Wins PlayerOne
+            gameBoardPositions[0] == playerOne.selection && gameBoardPositions[3] == playerOne.selection && gameBoardPositions[6] == playerOne.selection ||
+            gameBoardPositions[1] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[7] == playerOne.selection ||
+            gameBoardPositions[2] == playerOne.selection && gameBoardPositions[5] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerWins = true
             cpuWins = false
             gameStatus.innerHTML = "The Player Wins! 😁"
         } else if (
-            // Cross Wins Player
-            gameBoardPositions[0] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[8] == playerGamePiece ||
-            gameBoardPositions[2] == playerGamePiece && gameBoardPositions[4] == playerGamePiece && gameBoardPositions[6] == playerGamePiece) {
+            // Cross Wins PlayerOne
+            gameBoardPositions[0] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[8] == playerOne.selection ||
+            gameBoardPositions[2] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[6] == playerOne.selection) {
                 playerWins = true
                 cpuWins = false
                 gameStatus.innerHTML = "The Player Wins! 😁"
         } else if (
-            // Horizontal wins CPU
-            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[1] == cpuGamePiece && gameBoardPositions[2] == cpuGamePiece ||
-            gameBoardPositions[3] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[5] == cpuGamePiece ||
-            gameBoardPositions[6] == cpuGamePiece && gameBoardPositions[7] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece) {
+            // Horizontal wins PlayerTwo
+            gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[1] == playerTwo.selection && gameBoardPositions[2] == playerTwo.selection ||
+            gameBoardPositions[3] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[5] == playerTwo.selection ||
+            gameBoardPositions[6] == playerTwo.selection && gameBoardPositions[7] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
                 playerWins = false
                 cpuWins = true
                 gameStatus.innerHTML = "The CPU Wins.... 😵"
         } else if (
-            // Vertical Wins CPU
-            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[3] == cpuGamePiece && gameBoardPositions[6] == cpuGamePiece ||
-            gameBoardPositions[1] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[7] == cpuGamePiece ||
-            gameBoardPositions[2] == cpuGamePiece && gameBoardPositions[5] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece) {
+            // Vertical Wins PlayerTwo
+            gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[3] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection ||
+            gameBoardPositions[1] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[7] == playerTwo.selection ||
+            gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[5] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
                 playerWins = false
                 cpuWins = true
                 gameStatus.innerHTML = "The CPU Wins.... 😵"    
         } else if (
-            // Cross Wins CPU
-            gameBoardPositions[0] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[8] == cpuGamePiece ||
-            gameBoardPositions[2] == cpuGamePiece && gameBoardPositions[4] == cpuGamePiece && gameBoardPositions[6] == cpuGamePiece) {
+            // Cross Wins PlayerTwo
+            gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection ||
+            gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection) {
                 playerWins = false
                 cpuWins = true
                 gameStatus.innerHTML = "The CPU Wins.... 😵"
@@ -286,6 +265,7 @@ const gameBoard = (() => {
         gameBoardPositions,
         gameEval,
         cpuPlay,
+        playerOneTurn,
     }
 })();
 
