@@ -123,10 +123,21 @@ const gameBoard = (() => {
         playerOne = {}
         playerTwo = {}
         gameStatus.innerHTML = "Please choose a game piece."
+        startModal.style.display = "block"
     }
 
     const gameScore = () => {
-        
+        let playerOneWinCount = 0
+        let playerTwoWinCount = 0
+        if(playerOneWins == true) {
+            ++playerOneWinCount 
+        } else if (playerTwoWinCount == true) {
+            ++playerTwoWinCount
+        }
+        return {
+            playerOneWinCount,
+            playerTwoWinCount,
+        }
     }
 
     // Eventlistener for game reset button.
