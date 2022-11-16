@@ -9,10 +9,15 @@ const gameSquareBM = document.getElementById('bottommid')
 const gameSquareTR = document.getElementById('topright')
 const gameSquareMR = document.getElementById('midright')
 const gameSquareBR = document.getElementById('bottomright')
+// Buttons
 const gameResetButton = document.getElementById('resetgame')
 const gameResetScore = document.getElementById('resetscore')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
+// Score Board Areas.
+const playerOneText = document.getElementById('player_one_text')
+const playerTwoText = document.getElementById('player_two_text')
+
 
 // Factory function for creating player objects.
 const gamePlayer = (name, selection) => {
@@ -53,7 +58,8 @@ gameForm.addEventListener('submit', () => {
     
     console.log(playerOne)
     console.log(playerTwo)
-
+    gameBoard.gameScore()
+    gameBoard.playerOneTurn()
     return {
         // Return all needed vals and keep the rest private. 
         playerOne,
@@ -82,6 +88,9 @@ const gameBoard = (() => {
                 item.innerHTML = playerOne.selection
                 let  attributeNum = Number(item.getAttribute('cell'))
                 gameBoardPositions[attributeNum] = playerOne.selection
+                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+                playerTwoTurn()
+                gameEval()
             })
         })
     }
@@ -95,6 +104,8 @@ const gameBoard = (() => {
                 item.innerHTML = playerTwo.selection
                 let  attributeNum = Number(item.getAttribute('cell'))
                 gameBoardPositions[attributeNum] = playerTwo.selection
+                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+                playerOneTurn()
                 gameEval()
             })
         })
@@ -137,6 +148,9 @@ const gameBoard = (() => {
             playerTwoWinCount = 0
         }
 
+        playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
+        playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
+
         return {
             resetCount,
             playerOneWinCount,
@@ -170,7 +184,7 @@ const gameBoard = (() => {
             gameBoardPositions[6] == playerOne.selection && gameBoardPositions[7] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerOneWins = true
             playerTwoWins = false
-            gameStatus.innerHTML = "The Player Wins! 😁"
+            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Vertical Wins PlayerOne
             gameBoardPositions[0] == playerOne.selection && gameBoardPositions[3] == playerOne.selection && gameBoardPositions[6] == playerOne.selection ||
@@ -178,14 +192,14 @@ const gameBoard = (() => {
             gameBoardPositions[2] == playerOne.selection && gameBoardPositions[5] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerOneWins = true
             playerTwoWins = false
-            gameStatus.innerHTML = "The Player Wins! 😁"
+            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Cross Wins PlayerOne
             gameBoardPositions[0] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[8] == playerOne.selection ||
             gameBoardPositions[2] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[6] == playerOne.selection) {
                 playerOneWins = true
                 playerTwoWins = false
-                gameStatus.innerHTML = "The Player Wins! 😁"
+                gameStatus.innerHTML = `${playerOne.name}` + " Wins!!! 😁"
         } else if (
             // Horizontal wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[1] == playerTwo.selection && gameBoardPositions[2] == playerTwo.selection ||
@@ -193,7 +207,7 @@ const gameBoard = (() => {
             gameBoardPositions[6] == playerTwo.selection && gameBoardPositions[7] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
                 playerOneWins = false
                 playerTwoWins = true
-                gameStatus.innerHTML = "The CPU Wins.... 😵"
+                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Vertical Wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[3] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection ||
@@ -201,25 +215,21 @@ const gameBoard = (() => {
             gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[5] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
                 playerOneWins = false
                 playerTwoWins = true
-                gameStatus.innerHTML = "The CPU Wins.... 😵"    
+                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"    
         } else if (
             // Cross Wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection ||
             gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection) {
                 playerOneWins = false
                 playerTwoWins = true
-                gameStatus.innerHTML = "The CPU Wins.... 😵"
-        } else {
+                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
+        } else if (gameBoardPositions[0] != "" && gameBoardPositions[1] != "" && gameBoardPositions[2] != "" && gameBoardPositions[3] != "" && gameBoardPositions[4] != "" && gameBoardPositions[5] != "" && gameBoardPositions[6] != "" && gameBoardPositions[7] != "" && gameBoardPositions[8] != ""){
                 gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
+        } else {
+            return
         }
     }
     
-    // Condition checking for if a person wins the game.
-    const checkWinner = () => {
-        if (playerWins == true) {
-
-        }
-    }
 
     // CPU random play logic.
     const cpuPlay = () => {
@@ -235,10 +245,6 @@ const gameBoard = (() => {
         }
 
     }
-
-
-
-
 
 
     const cpuRandomPlayObj = () => {
@@ -284,10 +290,12 @@ const gameBoard = (() => {
                         
                         
     return {
+        gameScore,
         gameBoardPositions,
         gameEval,
         cpuPlay,
         playerOneTurn,
+        playerTwoTurn,
     }
 })();
 
