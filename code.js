@@ -82,8 +82,22 @@ const gameBoard = (() => {
     // When its playerOnes turn add specific eventlistener.
     const playerOneTurn = () => {
         let gameSquares = document.querySelectorAll('.square')
-        // gameSquares.replaceWith(gameSquares.cloneNode(true))
+
+        // Remove previous eventlisteners to keep game running smoothly
+        gameSquares.forEach(item => {
+            item.removeEventListener('click', () => {
+                item.innerHTML = playerTwo.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerTwo.selection
+                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+                playerOneTurn()
+                gameEval()
+            })
+        })
+
         console.log(gameSquares)
+
+        // Add eventlistener to each box for player turn and update game board array.
         gameSquares.forEach(item => {
             item.addEventListener('click', () => {
                 item.innerHTML = playerOne.selection
@@ -99,7 +113,19 @@ const gameBoard = (() => {
     // When its playerTwos turn add specific eventlistener.
     const playerTwoTurn = () => {
         let gameSquares = document.querySelectorAll('.square')
-        // gameSquares.replaceWith(gameSquares.cloneNode(true))
+
+        // Remove previous eventlisteners to keep game running smoothly
+        gameSquares.forEach(item => {
+            item.removeEventListener('click', () => {
+                item.innerHTML = playerOne.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerTwo.selection
+                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+                playerOneTurn()
+                gameEval()
+            })
+        })
+
         console.log(gameSquares)
         gameSquares.forEach(item => {
             item.addEventListener('click', () => {
@@ -136,12 +162,34 @@ const gameBoard = (() => {
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
 
+        gameSquares.forEach(item => {
+            item.removeEventListener('click', () => {
+                item.innerHTML = playerOne.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerTwo.selection
+                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+                playerOneTurn()
+                gameEval()
+            })
+        })
+
+        gameSquares.forEach(item => {
+            item.removeEventListener('click', () => {
+                item.innerHTML = playerTwo.selection
+                let  attributeNum = Number(item.getAttribute('cell'))
+                gameBoardPositions[attributeNum] = playerTwo.selection
+                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+                playerOneTurn()
+                gameEval()
+            })
+        })        
 
     }
-
+    
+    let playerOneWinCount = 0
+    let playerTwoWinCount = 0
+    
     const gameScore = () => {
-        let playerOneWinCount = 0
-        let playerTwoWinCount = 0
         if(playerOneWins == true) {
             ++playerOneWinCount 
         } else if (playerTwoWinCount == true) {
@@ -151,15 +199,20 @@ const gameBoard = (() => {
         const resetCount = () => {
             playerOneWinCount = 0
             playerTwoWinCount = 0
+            playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
+            playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
         }
 
         playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
         playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
+        
+        // Game score reset.
+        gameResetScore.addEventListener('click', () => {
+            resetCount()
+        })
 
         return {
             resetCount,
-            playerOneWinCount,
-            playerTwoWinCount,
         }
     }
 
@@ -168,10 +221,6 @@ const gameBoard = (() => {
     // Eventlistener for game reset button.
     gameResetButton.addEventListener('click', () => {
         gameBoardReset()
-    })
-    // Game score reset.
-    gameResetScore.addEventListener('click', () => {
-        gameScore.resetCount()
     })
 
     // When the player or computer picks a position,
