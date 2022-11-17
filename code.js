@@ -113,6 +113,7 @@ const gameBoard = (() => {
         })
     }
     
+    
     // Reset for game board.
     const gameBoardReset = () => {
         // reset the dom elements.
@@ -134,6 +135,8 @@ const gameBoard = (() => {
         playerTwo = {}
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
+
+
     }
 
     const gameScore = () => {
@@ -186,6 +189,7 @@ const gameBoard = (() => {
             gameBoardPositions[6] == playerOne.selection && gameBoardPositions[7] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerOneWins = true
             playerTwoWins = false
+            gameScore()
             gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Vertical Wins PlayerOne
@@ -194,39 +198,47 @@ const gameBoard = (() => {
             gameBoardPositions[2] == playerOne.selection && gameBoardPositions[5] == playerOne.selection && gameBoardPositions[8] == playerOne.selection) {
             playerOneWins = true
             playerTwoWins = false
+            gameScore()
             gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Cross Wins PlayerOne
             gameBoardPositions[0] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[8] == playerOne.selection ||
             gameBoardPositions[2] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[6] == playerOne.selection) {
-                playerOneWins = true
-                playerTwoWins = false
-                gameStatus.innerHTML = `${playerOne.name}` + " Wins!!! 😁"
+            playerOneWins = true
+            playerTwoWins = false
+            gameScore()
+            gameStatus.innerHTML = `${playerOne.name}` + " Wins!!! 😁"
         } else if (
             // Horizontal wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[1] == playerTwo.selection && gameBoardPositions[2] == playerTwo.selection ||
             gameBoardPositions[3] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[5] == playerTwo.selection ||
             gameBoardPositions[6] == playerTwo.selection && gameBoardPositions[7] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
-                playerOneWins = false
-                playerTwoWins = true
-                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
+            playerOneWins = false
+            playerTwoWins = true
+            gameScore()
+            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (
             // Vertical Wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[3] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection ||
             gameBoardPositions[1] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[7] == playerTwo.selection ||
             gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[5] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection) {
-                playerOneWins = false
-                playerTwoWins = true
-                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"    
+            playerOneWins = false
+            playerTwoWins = true
+            gameScore()
+            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"    
         } else if (
             // Cross Wins PlayerTwo
             gameBoardPositions[0] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[8] == playerTwo.selection ||
             gameBoardPositions[2] == playerTwo.selection && gameBoardPositions[4] == playerTwo.selection && gameBoardPositions[6] == playerTwo.selection) {
-                playerOneWins = false
-                playerTwoWins = true
-                gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
+            playerOneWins = false
+            playerTwoWins = true
+            gameScore()
+            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
         } else if (gameBoardPositions[0] != "" && gameBoardPositions[1] != "" && gameBoardPositions[2] != "" && gameBoardPositions[3] != "" && gameBoardPositions[4] != "" && gameBoardPositions[5] != "" && gameBoardPositions[6] != "" && gameBoardPositions[7] != "" && gameBoardPositions[8] != ""){
-                gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
+            playerOneWins = false
+            playerTwoWins = false
+            gameScore()
+            gameStatus.innerHTML = "The game is a tie nobody wins. 😖"
         } else {
             return
         }
