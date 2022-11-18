@@ -59,7 +59,8 @@ gameForm.addEventListener('submit', () => {
     console.log(playerOne)
     console.log(playerTwo)
     gameBoard.gameScore()
-    gameBoard.playerOneTurn()
+    gameBoard.initGame()
+    IsItPlayerOneTurn = true
     return {
         // Return all needed vals and keep the rest private. 
         playerOne,
@@ -79,65 +80,71 @@ const gameBoard = (() => {
     let playerOneWins = false
     let playerTwoWins = false
     
-    // When its playerOnes turn add specific eventlistener.
-    const playerOneTurn = () => {
-        let gameSquares = document.querySelectorAll('.square')
-
-        // Remove previous eventlisteners to keep game running smoothly
-        gameSquares.forEach(item => {
-            item.removeEventListener('click', () => {
-                item.innerHTML = playerTwo.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
-                playerOneTurn()
-                gameEval()
-            })
+    let IsItPlayerOneTurn = false
+    let IsItPlayerTwoTurn = false
+    const gameSquares = document.querySelectorAll('.square')
+     console.log(gameSquares)
+    // Create event listener for the start of the game.
+    const initGame = () => {
+        gameSquares.forEach((item) => {
+            item.addEventListener('click', squareClicked(item))
         })
+    }    
+    
 
-        console.log(gameSquares)
-
-        // Add eventlistener to each box for player turn and update game board array.
-        gameSquares.forEach(item => {
-            item.addEventListener('click', () => {
-                item.innerHTML = playerOne.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerOne.selection
-                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
-                playerTwoTurn()
-                gameEval()
-            })
-        })
+    const squareClicked = (item) => {
+        let squareCell = item.getAttribute('cell')
+        squareCell = Number(squareCell)
+        console.log(squareCell)
+        if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
+            item.innerText = playerOne.selection
+            gameBoardPositions[squareCell] = playerOne.selection
+            IsItPlayerOneTurn = false
+            IsItPlayerTwoTurn = true
+            gameEval()
+        } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
+            item.innerText = playerTwo.selection
+            gameBoardPositions[squareCell] = playerTwo.selection
+            IsItPlayerOneTurn = true
+            IsItPlayerTwoTurn = false
+            gameEval()
+        } else {
+            return
+        }
     }
+
+    // When its playerOnes turn add specific eventlistener.
+    // const playerOneTurn = () => {
+    //     // Add eventlistener to each box for player turn and update game board array.
+    //     gameSquares.forEach(item => {
+    //         item.addEventListener('click', () => {
+    //             event.stopPropagation()
+    //             // item.replaceWith(item.cloneNode(true))
+    //             item.innerHTML = playerOne.selection
+    //             let  attributeNum = Number(item.getAttribute('cell'))
+    //             gameBoardPositions[attributeNum] = playerOne.selection
+    //             gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+    //             playerTwoTurn()
+    //             gameEval()
+    //         })
+    //     })
+    // }
 
     // When its playerTwos turn add specific eventlistener.
-    const playerTwoTurn = () => {
-        let gameSquares = document.querySelectorAll('.square')
-
-        // Remove previous eventlisteners to keep game running smoothly
-        gameSquares.forEach(item => {
-            item.removeEventListener('click', () => {
-                item.innerHTML = playerOne.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
-                playerOneTurn()
-                gameEval()
-            })
-        })
-
-        console.log(gameSquares)
-        gameSquares.forEach(item => {
-            item.addEventListener('click', () => {
-                item.innerHTML = playerTwo.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
-                playerOneTurn()
-                gameEval()
-            })
-        })
-    }
+    // const playerTwoTurn = () => {
+    //     gameSquares.forEach(item => {
+    //         item.addEventListener('click', () => {
+    //             event.stopPropagation()
+    //             // item.replaceWith(item.cloneNode(true))
+    //             item.innerHTML = playerTwo.selection
+    //             let  attributeNum = Number(item.getAttribute('cell'))
+    //             gameBoardPositions[attributeNum] = playerTwo.selection
+    //             gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+    //             playerOneTurn()
+    //             gameEval()
+    //         })
+    //     })
+    // }
     
     
     // Reset for game board.
@@ -162,27 +169,27 @@ const gameBoard = (() => {
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
 
-        gameSquares.forEach(item => {
-            item.removeEventListener('click', () => {
-                item.innerHTML = playerOne.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
-                playerOneTurn()
-                gameEval()
-            })
-        })
+        // gameSquares.forEach(item => {
+        //     item.removeEventListener('click', () => {
+        //         item.innerHTML = playerOne.selection
+        //         let  attributeNum = Number(item.getAttribute('cell'))
+        //         gameBoardPositions[attributeNum] = playerTwo.selection
+        //         gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
+        //         playerOneTurn()
+        //         gameEval()
+        //     })
+        // })
 
-        gameSquares.forEach(item => {
-            item.removeEventListener('click', () => {
-                item.innerHTML = playerTwo.selection
-                let  attributeNum = Number(item.getAttribute('cell'))
-                gameBoardPositions[attributeNum] = playerTwo.selection
-                gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
-                playerOneTurn()
-                gameEval()
-            })
-        })        
+        // gameSquares.forEach(item => {
+        //     item.removeEventListener('click', () => {
+        //         item.innerHTML = playerTwo.selection
+        //         let  attributeNum = Number(item.getAttribute('cell'))
+        //         gameBoardPositions[attributeNum] = playerTwo.selection
+        //         gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
+        //         playerOneTurn()
+        //         gameEval()
+        //     })
+        // })        
 
     }
     
@@ -357,8 +364,7 @@ const gameBoard = (() => {
         gameBoardPositions,
         gameEval,
         cpuPlay,
-        playerOneTurn,
-        playerTwoTurn,
+        initGame,
     }
 })();
 
