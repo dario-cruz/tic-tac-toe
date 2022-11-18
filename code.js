@@ -44,6 +44,7 @@ const gameForm = document.getElementById('game_data')
 gameForm.addEventListener('submit', () => {
     // Stop page reload.
     event.preventDefault()
+
     // Extract form data.
     const formData = new FormData(gameForm)
     // Close modal.
@@ -82,28 +83,35 @@ const gameBoard = (() => {
     
     let IsItPlayerOneTurn = false
     let IsItPlayerTwoTurn = false
+
     const gameSquares = document.querySelectorAll('.square')
      console.log(gameSquares)
     // Create event listener for the start of the game.
     const initGame = () => {
-        gameSquares.forEach((item) => {
-            item.addEventListener('click', squareClicked(item))
-        })
+        for (i of gameSquares) {
+            i.addEventListener('click', squareClicked(i))
+            console.log(i)
+        }
+
+
+        // gameSquares.forEach(square => {
+        //     square.addEventListener('click', squareClicked(square))
+        // })
     }    
     
 
-    const squareClicked = (item) => {
-        let squareCell = item.getAttribute('cell')
+    const squareClicked = (elem) => {
+        let squareCell = elem.getAttribute('cell')
         squareCell = Number(squareCell)
         console.log(squareCell)
         if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
-            item.innerText = playerOne.selection
+            elem.innerText = playerOne.selection
             gameBoardPositions[squareCell] = playerOne.selection
             IsItPlayerOneTurn = false
             IsItPlayerTwoTurn = true
             gameEval()
         } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
-            item.innerText = playerTwo.selection
+            elem.innerText = playerTwo.selection
             gameBoardPositions[squareCell] = playerTwo.selection
             IsItPlayerOneTurn = true
             IsItPlayerTwoTurn = false
