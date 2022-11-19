@@ -17,6 +17,7 @@ const gameStatus = document.getElementById('condition')
 // Score Board Areas.
 const playerOneText = document.getElementById('player_one_text')
 const playerTwoText = document.getElementById('player_two_text')
+const gameSquares = document.querySelectorAll('.square')
 
 
 // Factory function for creating player objects.
@@ -84,34 +85,50 @@ const gameBoard = (() => {
     let IsItPlayerOneTurn = false
     let IsItPlayerTwoTurn = false
 
-    const gameSquares = document.querySelectorAll('.square')
      console.log(gameSquares)
     // Create event listener for the start of the game.
     const initGame = () => {
         for (i of gameSquares) {
-            i.addEventListener('click', squareClicked(i))
-            console.log(i)
+            i.addEventListener('click', (i) => {
+                let squareCell = i.getAttribute('cell')
+                squareCell = Number(squareCell)
+                console.log(squareCell)
+                if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
+                    i.innerText = playerOne.selection
+                    gameBoardPositions[squareCell] = playerOne.selection
+                    IsItPlayerOneTurn = false
+                    IsItPlayerTwoTurn = true
+                    gameEval()
+                } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
+                    i.innerText = playerTwo.selection
+                    gameBoardPositions[squareCell] = playerTwo.selection
+                    IsItPlayerOneTurn = true
+                    IsItPlayerTwoTurn = false
+                    gameEval()
+                } else {
+                    return
+                }
+                console.log(i)
+            })
         }
-
-
         // gameSquares.forEach(square => {
         //     square.addEventListener('click', squareClicked(square))
         // })
     }    
     
 
-    const squareClicked = (elem) => {
-        let squareCell = elem.getAttribute('cell')
+    const squareClicked = (e) => {
+        let squareCell = e.getAttribute('cell')
         squareCell = Number(squareCell)
         console.log(squareCell)
         if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
-            elem.innerText = playerOne.selection
+            e.innerText = playerOne.selection
             gameBoardPositions[squareCell] = playerOne.selection
             IsItPlayerOneTurn = false
             IsItPlayerTwoTurn = true
             gameEval()
         } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
-            elem.innerText = playerTwo.selection
+            e.innerText = playerTwo.selection
             gameBoardPositions[squareCell] = playerTwo.selection
             IsItPlayerOneTurn = true
             IsItPlayerTwoTurn = false

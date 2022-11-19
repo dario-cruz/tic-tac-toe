@@ -81,6 +81,9 @@
 #bottomright {
     grid-area: bottomright;
 }
+#gameboard > .square {
+    cursor: pointer;
+}
 
 /* Font sizing for Gameboard squares. */
 .gameboard > div {
