@@ -141,9 +141,15 @@ const gameBoard = (() => {
         playerTwo = {}
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
-
+        
     }
     
+    // Eventlistener for game reset button.
+    gameResetButton.addEventListener('click', () => {
+        gameBoardReset()
+    })
+
+    // Player win tally. 
     let playerOneWinCount = 0
     let playerTwoWinCount = 0
     
@@ -155,7 +161,7 @@ const gameBoard = (() => {
             ++playerOneWinCount
             console.log(playerOneWinCount) 
             playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
-        } else if (playerTwoWinCount == true) {
+        } else if (playerTwoWins == true) {
             ++playerTwoWinCount
             console.log(playerTwoWinCount)
             playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
@@ -178,10 +184,6 @@ const gameBoard = (() => {
         }
     }
 
-    // Eventlistener for game reset button.
-    gameResetButton.addEventListener('click', () => {
-        gameBoardReset()
-    })
 
     // When the player or computer picks a position,
     // This will update.
@@ -199,7 +201,7 @@ const gameBoard = (() => {
             playerOneWins = true
             playerTwoWins = false
             gameScore()
-            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
+            gameStatus.innerHTML = `${playerOne.name}` + " Wins!!! 😁"
         } else if (
             // Vertical Wins PlayerOne
             gameBoardPositions[0] == playerOne.selection && gameBoardPositions[3] == playerOne.selection && gameBoardPositions[6] == playerOne.selection ||
@@ -208,7 +210,7 @@ const gameBoard = (() => {
             playerOneWins = true
             playerTwoWins = false
             gameScore()
-            gameStatus.innerHTML = `${playerTwo.name}` + " Wins!!! 😁"
+            gameStatus.innerHTML = `${playerOne.name}` + " Wins!!! 😁"
         } else if (
             // Cross Wins PlayerOne
             gameBoardPositions[0] == playerOne.selection && gameBoardPositions[4] == playerOne.selection && gameBoardPositions[8] == playerOne.selection ||
@@ -253,23 +255,6 @@ const gameBoard = (() => {
         }
     }
     
-
-    // CPU random play logic.
-    const cpuPlay = () => {
-        let arrayLength = gameBoardPositions.length
-        for (let i = 0; i < arrayLength; i++) {
-            if (gameBoardPositions[i] !=  `${cpuGamePiece}` || gameBoardPositions[i] != `${playerGamePiece}`) {
-                gameBoardPositions[i] = `${cpuGamePiece}`
-                let boardPlace = document.querySelector('[cell=`${i}`]')
-                boardPlace.innerHTML = `${cpuGamePiece}`
-                break;
-            }
-
-        }
-
-    }
-                        
-                        
     return {
         gameScore,
         gameBoardPositions,
