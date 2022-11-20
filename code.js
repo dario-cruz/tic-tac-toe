@@ -12,6 +12,7 @@ const gameSquareBR = document.getElementById('bottomright')
 // Buttons
 const gameResetButton = document.getElementById('resetgame')
 const gameResetScore = document.getElementById('resetscore')
+const gameNewGame = document.getElementById('newgame')
 // Game status area, will tell the user who won or if the game is a tie.
 const gameStatus = document.getElementById('condition')
 // Score Board Areas.
@@ -143,6 +144,33 @@ const gameBoard = (() => {
         startModal.style.display = "block"
         
     }
+
+    // Start new game with same player names and pieces.
+    const newGame = () => {
+        // reset the dom elements.
+        gameSquareBL.innerHTML = ""
+        gameSquareBM.innerHTML = ""
+        gameSquareBR.innerHTML = ""
+        gameSquareCM.innerHTML = ""
+        gameSquareML.innerHTML = ""
+        gameSquareMR.innerHTML = ""
+        gameSquareTL.innerHTML = ""
+        gameSquareTM.innerHTML = ""
+        gameSquareTR.innerHTML = ""
+        // reset the object and arrays
+        gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
+        // reset flags for cpu and player win.
+        playerOneWins = false
+        playerTwoWins = false
+        IsItPlayerOneTurn = true
+        IsItPlayerTwoTurn = false
+        gameStatus.innerHTML = "Okay new game: " + `${playerOne.name}` + " It's your turn"
+    }
+
+    // Connecting function to newGame button.
+    gameNewGame.addEventListener('click', () => {
+        newGame()
+    })
     
     // Eventlistener for game reset button.
     gameResetButton.addEventListener('click', () => {
