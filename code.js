@@ -37,6 +37,8 @@ window.addEventListener('click', () => {
     }
 })
 
+// Define Empty player objs.
+// Will get filled by form element.
 let playerOne = {}
 let playerTwo = {}
 
@@ -57,18 +59,20 @@ gameForm.addEventListener('submit', () => {
     // Create player objects from processed data. 
     playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
     playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
-    
-    console.log(playerOne)
-    console.log(playerTwo)
-    gameBoard.gameScore()
-    gameBoard.initGame()
+
     IsItPlayerOneTurn = true
+    gameBoard.gameScore()
+    // gameBoard.initGame()
+    gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
     return {
         // Return all needed vals and keep the rest private. 
         playerOne,
         playerTwo,
     }
 })
+// Player Win status.
+let IsItPlayerOneTurn = false
+let IsItPlayerTwoTurn = false
 
 // Game functionality in Module pattern and IIFE. 
 const gameBoard = (() => {
@@ -78,96 +82,43 @@ const gameBoard = (() => {
     // Need to investigate further. 
     let gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
     
-    // Define player status'
     let playerOneWins = false
     let playerTwoWins = false
     
-    let IsItPlayerOneTurn = false
-    let IsItPlayerTwoTurn = false
-
-     console.log(gameSquares)
+    console.log(gameSquares)
     // Create event listeners for the start of the game.
-    const initGame = () => {
+    const initGame = (() => {
+        // Define player status'
         gameSquares.forEach((i) => {
             i.addEventListener('click', () => {
+                let squareCell
                 let squareCellRaw = i.getAttribute('cell')
                 squareCell = Number(squareCellRaw)
                 console.log(squareCell)
-                if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
-                    i.innerText = playerOne.selection
+                console.log(IsItPlayerOneTurn)
+                console.log(IsItPlayerTwoTurn)
+                if(IsItPlayerOneTurn == true && gameBoardPositions[squareCell] == "") {
+                    i.innerHTML = playerOne.selection
                     gameBoardPositions[squareCell] = playerOne.selection
+                    console.log(gameBoardPositions)
                     IsItPlayerOneTurn = false
                     IsItPlayerTwoTurn = true
+                    gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
                     gameEval()
-                } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
-                    i.innerText = playerTwo.selection
+                } else if (IsItPlayerTwoTurn == true && gameBoardPositions[squareCell] == "") {
+                    i.innerHTML = playerTwo.selection
                     gameBoardPositions[squareCell] = playerTwo.selection
                     IsItPlayerOneTurn = true
                     IsItPlayerTwoTurn = false
+                    gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
                     gameEval()
                 } else {
-                    return
+                    alert('??')
                 }
                 console.log(i)
             })
         })
-    }    
-    
-
-    const squareClicked = (e) => {
-        let squareCell = e.getAttribute('cell')
-        squareCell = Number(squareCell)
-        console.log(squareCell)
-        if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
-            e.innerText = playerOne.selection
-            gameBoardPositions[squareCell] = playerOne.selection
-            IsItPlayerOneTurn = false
-            IsItPlayerTwoTurn = true
-            gameEval()
-        } else if (gameBoardPositions[squareCell] != "" && IsItPlayerTwoTurn == true || gameBoardPositions[squareCell] != playerOne.selection && IsItPlayerTwoTurn == true) {
-            e.innerText = playerTwo.selection
-            gameBoardPositions[squareCell] = playerTwo.selection
-            IsItPlayerOneTurn = true
-            IsItPlayerTwoTurn = false
-            gameEval()
-        } else {
-            return
-        }
-    }
-
-    // When its playerOnes turn add specific eventlistener.
-    // const playerOneTurn = () => {
-    //     // Add eventlistener to each box for player turn and update game board array.
-    //     gameSquares.forEach(item => {
-    //         item.addEventListener('click', () => {
-    //             event.stopPropagation()
-    //             // item.replaceWith(item.cloneNode(true))
-    //             item.innerHTML = playerOne.selection
-    //             let  attributeNum = Number(item.getAttribute('cell'))
-    //             gameBoardPositions[attributeNum] = playerOne.selection
-    //             gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
-    //             playerTwoTurn()
-    //             gameEval()
-    //         })
-    //     })
-    // }
-
-    // When its playerTwos turn add specific eventlistener.
-    // const playerTwoTurn = () => {
-    //     gameSquares.forEach(item => {
-    //         item.addEventListener('click', () => {
-    //             event.stopPropagation()
-    //             // item.replaceWith(item.cloneNode(true))
-    //             item.innerHTML = playerTwo.selection
-    //             let  attributeNum = Number(item.getAttribute('cell'))
-    //             gameBoardPositions[attributeNum] = playerTwo.selection
-    //             gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
-    //             playerOneTurn()
-    //             gameEval()
-    //         })
-    //     })
-    // }
-    
+    })()    
     
     // Reset for game board.
     const gameBoardReset = () => {
@@ -387,6 +338,8 @@ const gameBoard = (() => {
         gameEval,
         cpuPlay,
         initGame,
+        IsItPlayerOneTurn,
+        IsItPlayerTwoTurn,
     }
 })();
 
