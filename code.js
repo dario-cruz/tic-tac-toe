@@ -142,38 +142,23 @@ const gameBoard = (() => {
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
 
-        // gameSquares.forEach(item => {
-        //     item.removeEventListener('click', () => {
-        //         item.innerHTML = playerOne.selection
-        //         let  attributeNum = Number(item.getAttribute('cell'))
-        //         gameBoardPositions[attributeNum] = playerTwo.selection
-        //         gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
-        //         playerOneTurn()
-        //         gameEval()
-        //     })
-        // })
-
-        // gameSquares.forEach(item => {
-        //     item.removeEventListener('click', () => {
-        //         item.innerHTML = playerTwo.selection
-        //         let  attributeNum = Number(item.getAttribute('cell'))
-        //         gameBoardPositions[attributeNum] = playerTwo.selection
-        //         gameStatus.innerHTML = `${playerOne.name}` + " It's your turn"
-        //         playerOneTurn()
-        //         gameEval()
-        //     })
-        // })        
-
     }
     
     let playerOneWinCount = 0
     let playerTwoWinCount = 0
     
     const gameScore = () => {
+        playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
+        playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
+       
         if(playerOneWins == true) {
-            ++playerOneWinCount 
+            ++playerOneWinCount
+            console.log(playerOneWinCount) 
+            playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
         } else if (playerTwoWinCount == true) {
             ++playerTwoWinCount
+            console.log(playerTwoWinCount)
+            playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
         }
 
         const resetCount = () => {
@@ -183,9 +168,6 @@ const gameBoard = (() => {
             playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
         }
 
-        playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
-        playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
-        
         // Game score reset.
         gameResetScore.addEventListener('click', () => {
             resetCount()
@@ -195,8 +177,6 @@ const gameBoard = (() => {
             resetCount,
         }
     }
-
-
 
     // Eventlistener for game reset button.
     gameResetButton.addEventListener('click', () => {
@@ -288,55 +268,12 @@ const gameBoard = (() => {
         }
 
     }
-
-
-    const cpuRandomPlayObj = () => {
-        
-        const cpuEmptySpaces = {
-            rowOne: gameBoardPositions.rowOne.map(isThisEmpty),
-            rowTwo: gameBoardPositions.rowTwo.map(isThisEmpty),
-            rowThree: gameBoardPositions.rowThree.map(isThisEmpty),
-        }
-
-        // Selects a random row from the empty space object.
-        const gameRandomRow = (obj) => {
-            const rows = Object.keys(obj)
-            return rows[Math.floor(Math.random() * rows.length)]
-        };
-        //Select random place from the array or the row. 
-        //Play the space if the it is free. 
-        const gameRandomRowItem = () => {
-            let randomRow = gameRandomRow(gameBoardPositions)
-
-            if (gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] == 0) {
-                gameBoardPositions[randomRow][Math.floor(Math.random() * gameBoardPositions[randomRow].length)] = 2
-
-            }
-
-        }
-        
-        gameRandomRowItem()
-
-        //Checks for empty board spaces
-        //Returns array of true or false on locations.
-        function isThisEmpty(num) {
-            if (num == 0) {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-        
-        // console.log(cpuEmptySpaces)        
-    }
                         
                         
     return {
         gameScore,
         gameBoardPositions,
         gameEval,
-        cpuPlay,
         initGame,
         IsItPlayerOneTurn,
         IsItPlayerTwoTurn,
