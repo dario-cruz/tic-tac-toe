@@ -86,12 +86,12 @@ const gameBoard = (() => {
     let IsItPlayerTwoTurn = false
 
      console.log(gameSquares)
-    // Create event listener for the start of the game.
+    // Create event listeners for the start of the game.
     const initGame = () => {
-        for (i of gameSquares) {
-            i.addEventListener('click', (i) => {
-                let squareCell = i.getAttribute('cell')
-                squareCell = Number(squareCell)
+        gameSquares.forEach((i) => {
+            i.addEventListener('click', () => {
+                let squareCellRaw = i.getAttribute('cell')
+                squareCell = Number(squareCellRaw)
                 console.log(squareCell)
                 if(gameBoardPositions[squareCell] != "" && IsItPlayerOneTurn == true || gameBoardPositions[squareCell] != playerTwo.selection && IsItPlayerOneTurn == true ) {
                     i.innerText = playerOne.selection
@@ -110,10 +110,7 @@ const gameBoard = (() => {
                 }
                 console.log(i)
             })
-        }
-        // gameSquares.forEach(square => {
-        //     square.addEventListener('click', squareClicked(square))
-        // })
+        })
     }    
     
 
