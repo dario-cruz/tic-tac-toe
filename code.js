@@ -56,7 +56,6 @@ gameForm.addEventListener('submit', () => {
     // Create empty obj and convert from weird FD obj to usable one.
     const formDataObj = {}
     formData.forEach((value,key) => (formDataObj[key] = value))
-    console.log(formDataObj)
     // Create player objects from processed data. 
     playerOne = gamePlayer(formDataObj.player_one_name, formDataObj.player_one_select)
     playerTwo = gamePlayer(formDataObj.player_two_name, formDataObj.player_two_select)
@@ -86,7 +85,6 @@ const gameBoard = (() => {
     let playerOneWins = false
     let playerTwoWins = false
     
-    console.log(gameSquares)
     // Create event listeners for the start of the game.
     const initGame = (() => {
         // Define player status'
@@ -95,13 +93,9 @@ const gameBoard = (() => {
                 let squareCell
                 let squareCellRaw = i.getAttribute('cell')
                 squareCell = Number(squareCellRaw)
-                console.log(squareCell)
-                console.log(IsItPlayerOneTurn)
-                console.log(IsItPlayerTwoTurn)
                 if(IsItPlayerOneTurn == true && gameBoardPositions[squareCell] == "") {
                     i.innerHTML = playerOne.selection
                     gameBoardPositions[squareCell] = playerOne.selection
-                    console.log(gameBoardPositions)
                     IsItPlayerOneTurn = false
                     IsItPlayerTwoTurn = true
                     gameStatus.innerHTML = `${playerTwo.name}` + " It's your turn"
@@ -116,7 +110,6 @@ const gameBoard = (() => {
                 } else {
                     // alert('??')
                 }
-                console.log(i)
             })
         })
     })()    
@@ -187,11 +180,9 @@ const gameBoard = (() => {
        
         if(playerOneWins == true) {
             ++playerOneWinCount
-            console.log(playerOneWinCount) 
             playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
         } else if (playerTwoWins == true) {
             ++playerTwoWinCount
-            console.log(playerTwoWinCount)
             playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
         }
 
