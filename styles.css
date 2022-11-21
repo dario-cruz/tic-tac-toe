@@ -171,7 +171,7 @@ button {
 .playertwo-form {
     margin-bottom: 20px;
 }
-/* styling form labels */
+/* styling form labels and inputs. */
 .playerone-form > .label, .playertwo-form > .label {
     font-family: 'Bebas Neue', cursive;
     display: flex;
@@ -182,6 +182,12 @@ button {
     width: 200px;
     border: 3px solid black;
     height: 20px;
+}
+/* Styling select drop down. */
+.playerone-form > select, .playertwo-form > select {
+    border: 2px solid black;
+    height: 25px;
+    font-family: 'Bowlby One SC', cursive;
 }
 
 /* status elements */
