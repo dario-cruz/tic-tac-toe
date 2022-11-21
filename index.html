@@ -13,25 +13,36 @@
 <body>
     <div class="modal" id="start_modal">
         <div class="modal-content">
-            <form id="game_data" onsubmit="return false" action="">
-                <label for="player_one_name">Player One Name</label>
-                <input name="player_one_name" type="text" id="player_one_name" required>
-                <select name="player_one_select" id="player_one_select" required>
-                    <option disabled selected value></option>
-                    <option value="X">X</option>
-                    <option value="O">O</option>
-                </select>
-
-                <label for="player_two_name">Player Two Name</label>
-                <input name="player_two_name" type="text" id="player_two_name" required>
-                <select name="player_two_select" id="player_two_select" required>
-                    <option disabled selected value></option>
-                    <option value="X">X</option>
-                    <option value="O">O</option>
-                </select>
-
-                <button type="submit" id="submit_button">Submit</button>
-            </form>
+            <div class="text-content">
+                <h1 class="title">Welcome to JS-Tic-Tac-Toe</h1>
+                <h2 class="creater"> Created by <a href="https://www.linkedin.com/in/dariocru/">Dario Cruz</a></h2>
+                <h3 class="info">Please enter the name of each player and the game piece you would like to play as.</h3>
+                <h3 class="info">When you are done hit the submit button to being playing.</h3>
+            </div>
+            <div class="form-content">
+                <form id="game_data" onsubmit="return false" action="">
+                    <div class="playerone-form">
+                        <label class="label" for="player_one_name">Player One Name</label>
+                        <input name="player_one_name" type="text" id="player_one_name" required>
+                        <select name="player_one_select" id="player_one_select" required>
+                            <option disabled selected value></option>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                    <div class="playertwo-form">
+                        <label class="label" for="player_two_name">Player Two Name</label>
+                        <input name="player_two_name" type="text" id="player_two_name" required>
+                        <select name="player_two_select" id="player_two_select" required>
+                            <option disabled selected value></option>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+    
+                    <button type="submit" id="submit_button">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="bodygrid">
