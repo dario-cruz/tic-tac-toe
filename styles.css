@@ -9,7 +9,7 @@
 /* Allows for centering of gameboard elems. */
 .bodygrid {
     display: grid;
-    grid-template: 1fr 600px 1fr 1fr / 1fr 600px 1fr;
+    grid-template: 1fr 600px 80px 80px / 1fr 600px 1fr;
     grid-template-areas: 
     "header header header"
     "left mid right"
@@ -156,8 +156,15 @@ button {
 }
 
 /* footer styling */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer > .icons {
+    padding-left: 10px;
+}
 .footer > .credits {
     text-align: center;
     font-family: 'Bebas Neue', cursive;
-
 }
