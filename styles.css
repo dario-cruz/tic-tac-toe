@@ -19,7 +19,7 @@
 /* Positoning for Header and footer areas. */
 .bodygrid > .header {
     grid-area: header;
-    height: 120px;
+    height: 130px;
     width: 100vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -38,14 +38,24 @@
     text-align: center;
     font-family: 'Bebas Neue', cursive;
     font-size: 20pt;
+    text-decoration: solid underline 3px;
 }
 .header > .right {
     padding-top: 10px;
     text-align: center;
     font-family: 'Bebas Neue', cursive;
     font-size: 20pt;
+    text-decoration: solid underline 3px;
 }
-
+/* button styling */
+button {
+    background-color: white;
+    border: 3px solid black;
+    width: 90px;
+    height: 30px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13pt;
+}
 
 .bodygrid > .footer {
     grid-area: footer;
