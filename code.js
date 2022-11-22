@@ -133,6 +133,7 @@ const gameBoard = (() => {
         playerTwoWins = false
         playerOne = {}
         playerTwo = {}
+        resetCount()
         gameStatus.innerHTML = "Please choose a game piece."
         startModal.style.display = "block"
         
@@ -186,23 +187,28 @@ const gameBoard = (() => {
             playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
         }
 
-        const resetCount = () => {
-            playerOneWinCount = 0
-            playerTwoWinCount = 0
-            playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
-            playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
-        }
-
+        
         // Game score reset.
         gameResetScore.addEventListener('click', () => {
             resetCount()
         })
-
+        
         return {
-            resetCount,
+            resetCount
         }
     }
-
+    
+    const resetCount = () => {
+        playerOneWinCount = 0
+        playerTwoWinCount = 0
+        if (typeof playerOne.name == 'undefined' && typeof playerTwo.name == 'undefined' ){
+            playerOneText.innerText = 'Player One Score:'
+            playerTwoText.innerText = 'Player Two Score:'
+        } else {
+            playerTwoText.innerText = `${playerTwo.name}` + " Score: " + `${playerTwoWinCount}`
+            playerOneText.innerText = `${playerOne.name}` + " Score: " + `${playerOneWinCount}`
+        }
+    }
 
     // When the player or computer picks a position,
     // This will update.
